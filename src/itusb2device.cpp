@@ -1,0 +1,190 @@
+/* ITUSB2 device class for Qt - Version 1.0 for Debian Linux
+   Copyright (c) 2021 Samuel Lourenço
+
+   This library is free software: you can redistribute it and/or modify it
+   under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or (at your
+   option) any later version.
+
+   This library is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+   License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with this library.  If not, see <https://www.gnu.org/licenses/>.
+
+
+   Please feel free to contact me via e-mail: samuel.fmlourenco@gmail.com */
+
+
+// Includes
+#include <QObject>
+#include "itusb2device.h"
+extern "C" {
+#include "libusb-extra.h"
+}
+
+// Definitions
+const uint16_t VID = 0x10C4;  // USB vendor ID
+const uint16_t PID = 0x8CDF;  // USB product ID
+const unsigned int TR_TIMEOUT = 100;  // Transfer timeout in milliseconds
+
+ITUSB2Device::ITUSB2Device()
+{
+}
+
+// Configures the given SPI channel in respect to its chip select mode, clock frequency, polarity and phase
+void ITUSB2Device::configureSPIMode(uint8_t channel, const SPIMode &mode, int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_out[2] = {
+        channel,                                                                                       // Selected channel
+        static_cast<uint8_t>(mode.cpha << 5 | mode.cpol << 4 | mode.csmode << 3 | (0x07 & mode.cfrq))  // Control word (specified chip select mode, clock frequency, polarity and phase)
+    };
+    if (libusb_control_transfer(handle_, 0x40, 0x31, 0x0000, 0x0000, control_buf_out, sizeof(control_buf_out), TR_TIMEOUT) != sizeof(control_buf_out)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0x40, 0x31).\n"));
+    }
+}
+
+// Disables the chip select corresponding to the target channel
+void ITUSB2Device::disableCS(uint8_t channel, int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_out[2] = {
+        channel,  // Selected channel
+        0x00      // Corresponding chip select disabled
+    };
+    if (libusb_control_transfer(handle_, 0x40, 0x25, 0x0000, 0x0000, control_buf_out, sizeof(control_buf_out), TR_TIMEOUT) != sizeof(control_buf_out)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0x40, 0x25).\n"));
+    }
+}
+
+// Disables all SPI delays for a given channel
+void ITUSB2Device::disableSPIDelays(uint8_t channel, int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_out[8] = {
+        channel,     // Selected channel
+        0x00,        // All SPI delays disabled, no CS toggle
+        0x00, 0x00,  // Inter-byte,
+        0x00, 0x00,  // post-assert and
+        0x00, 0x00   // pre-deassert delays all set to 0us
+    };
+    if (libusb_control_transfer(handle_, 0x40, 0x33, 0x0000, 0x0000, control_buf_out, sizeof(control_buf_out), TR_TIMEOUT) != sizeof(control_buf_out)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0x40, 0x33).\n"));
+    }
+}
+
+// Gets the raw value, corresponding to the measured current, from the LTC2312 ADC
+uint16_t ITUSB2Device::getCurrent(int &errcnt, QString &errstr) const
+{
+    unsigned char read_command_buf[8] = {
+        0x00, 0x00,             // Reserved
+        0x00,                   // Read command
+        0x00,                   // Reserved
+        0x02, 0x00, 0x00, 0x00  // Two bytes to read
+    };
+    unsigned char read_input_buf[2];
+    int bytes_read, bytes_written;
+    if (libusb_bulk_transfer(handle_, 0x01, read_command_buf, sizeof(read_command_buf), &bytes_written, TR_TIMEOUT) != 0) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed bulk OUT transfer to endpoint 1 (address 0x01).\n"));
+    } else if (libusb_bulk_transfer(handle_, 0x82, read_input_buf, sizeof(read_input_buf), &bytes_read, TR_TIMEOUT) != 0) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed bulk IN transfer from endpoint 2 (address 0x82).\n"));
+    }
+    return static_cast<uint16_t>(read_input_buf[0] << 4 | read_input_buf[1] >> 4);
+}
+
+void ITUSB2Device::reset(int &errcnt, QString &errstr) const  // Issues a reset to the CP2130, which in effect resets the entire device
+{
+    if (libusb_control_transfer(handle_, 0x40, 0x10, 0x0000, 0x0000, nullptr, 0, TR_TIMEOUT) != 0) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0x40, 0x10).\n"));
+    }
+}
+
+// Enables the chip select of the target channel, disabling any others
+void ITUSB2Device::selectCS(uint8_t channel, int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_out[2] = {
+        channel,  // Selected channel
+        0x02      // Only the corresponding chip select is enabled, all the others are disabled
+    };
+    if (libusb_control_transfer(handle_, 0x40, 0x25, 0x0000, 0x0000, control_buf_out, sizeof(control_buf_out), TR_TIMEOUT) != sizeof(control_buf_out)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0x40, 0x25).\n"));
+    }
+}
+
+// Opens the device having the given serial number, and assigns its handle
+int ITUSB2Device::open(const QString &serial)
+{
+    int retval = 0;
+    if (!deviceOpen_) {  // Just in case the calling algorithm tries to open a device that was already sucessfully open, or tries to open different devices concurrently, all while using (or referencing to) the same object
+        if (libusb_init(&context_) != 0) {  // Initialize libusb. In case of failure
+            retval = 1;
+        } else {  // If libusb is initialized
+            handle_ = libusb_open_device_with_vid_pid_serial(context_, VID, PID, reinterpret_cast<unsigned char *>(serial.toLocal8Bit().data()));
+            if (handle_ == nullptr) {  // If the previous operation fails to get a device handle
+                libusb_exit(context_);  // Deinitialize libusb
+                retval = 2;
+            } else {  // If the device is successfully opened and a handle obtained
+                if (libusb_kernel_driver_active(handle_, 0) != 0) {  // If a kernel driver is active on the interface
+                    libusb_detach_kernel_driver(handle_, 0);  // Detach the kernel driver
+                    kernelAttached_ = true;  // Flag that the kernel driver was attached
+                } else {
+                    kernelAttached_ = false;  // The kernel driver was not attached
+                }
+                if (libusb_claim_interface(handle_, 0) != 0) {  // Claim the interface. In case of failure
+                    if (kernelAttached_) {  // If a kernel driver was attached to the interface before
+                        libusb_attach_kernel_driver(handle_, 0);  // Reattach the kernel driver
+                        // No need to flag the kernel driver as detached here
+                    }
+                    libusb_close(handle_);  // Close the device
+                    libusb_exit(context_);  // Deinitialize libusb
+                    retval = 3;
+                } else {
+                    deviceOpen_ = true;  // Flag the device as open
+                }
+            }
+        }
+    }
+    return retval;
+}
+
+// Helper function to list devices
+QStringList ITUSB2Device::listDevices(int &errcnt, QString &errstr)
+{
+    QStringList devices;
+    libusb_context *context;
+    if (libusb_init(&context) != 0) {  // Initialize libusb. In case of failure
+        errcnt += 1;
+        errstr.append(QObject::tr("Could not initialize libusb.\n"));
+    } else {  // If libusb is initialized
+        libusb_device **devs;
+        ssize_t devlist = libusb_get_device_list(context, &devs);  // Get a device list
+        if (devlist < 0) {  // If the previous operation fails to get a device list
+            errcnt += 1;
+            errstr.append(QObject::tr("Failed to retrieve a list of devices.\n"));
+        } else {
+            for (ssize_t i = 0; i < devlist; ++i) {  // Run through all listed devices
+                struct libusb_device_descriptor desc;
+                if (libusb_get_device_descriptor(devs[i], &desc) == 0 && desc.idVendor == VID && desc.idProduct == PID) {  // If the device descriptor is retrieved, and both VID and PID correspond to the ITUSB2 USB Test Switch
+                    libusb_device_handle *handle;
+                    if (libusb_open(devs[i], &handle) == 0) {  // Open the listed device. If successfull
+                        unsigned char str_desc[256];
+                        libusb_get_string_descriptor_ascii(handle, desc.iSerialNumber, str_desc, sizeof(str_desc));  // Get the serial number string in ASCII format
+                        QString serial;
+                        devices.append(serial.fromLocal8Bit(reinterpret_cast<char *>(str_desc)));  // Append the serial number string to the list
+                        libusb_close(handle);  // Close the device
+                    }
+                }
+            }
+            libusb_free_device_list(devs, 1);  // Free device list
+        }
+        libusb_exit(context);  // Deinitialize libusb
+    }
+    return devices;
+}
