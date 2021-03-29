@@ -18,33 +18,18 @@
    Please feel free to contact me via e-mail: samuel.fmlourenco@gmail.com */
 
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
-
 // Includes
-#include <QMainWindow>
+#include "aboutdialog.h"
+#include "ui_aboutdialog.h"
 
-namespace Ui {
-class MainWindow;
+AboutDialog::AboutDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::AboutDialog)
+{
+    ui->setupUi(this);
 }
 
-class MainWindow : public QMainWindow
+AboutDialog::~AboutDialog()
 {
-    Q_OBJECT
-
-public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-
-private slots:
-    void on_actionAbout_triggered();
-    void on_comboBoxDevices_currentIndexChanged(int index);
-    void on_pushButtonOpen_clicked();
-    void on_pushButtonRefresh_clicked();
-
-private:
-    Ui::MainWindow *ui;
-    void refresh();
-};
-
-#endif // MAINWINDOW_H
+    delete ui;
+}

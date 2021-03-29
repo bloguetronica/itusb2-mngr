@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    aboutdialog.cpp \
     devicewindow.cpp \
     itusb2device.cpp \
     libusb-extra.c \
@@ -23,12 +24,14 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    aboutdialog.h \
     devicewindow.h \
     itusb2device.h \
     libusb-extra.h \
     mainwindow.h
 
 FORMS += \
+    aboutdialog.ui \
     devicewindow.ui \
     mainwindow.ui
 

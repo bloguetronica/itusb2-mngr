@@ -18,46 +18,26 @@
    Please feel free to contact me via e-mail: samuel.fmlourenco@gmail.com */
 
 
-#ifndef DEVICEWINDOW_H
-#define DEVICEWINDOW_H
+#ifndef ABOUTDIALOG_H
+#define ABOUTDIALOG_H
 
 // Includes
-#include <QLabel>
-#include <QMainWindow>
-#include <QTime>
-#include <QTimer>
-#include "itusb2device.h"
+#include <QDialog>
 
 namespace Ui {
-class DeviceWindow;
+class AboutDialog;
 }
 
-class DeviceWindow : public QMainWindow
+class AboutDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit DeviceWindow(QWidget *parent = nullptr);
-    ~DeviceWindow();
-
-    void openDevice(const QString &serialstr);
-
-private slots:
-    void on_actionAbout_triggered();
-    void on_pushButtonAttach_clicked();
-    void on_pushButtonDetach_clicked();
+    explicit AboutDialog(QWidget *parent = nullptr);
+    ~AboutDialog();
 
 private:
-    Ui::DeviceWindow *ui;
-    int erracc_ = 0;
-    ITUSB2Device device_;
-    QLabel *labelLog_, *labelMeas_, *labelTime_;
-    QString filepath_, serialstr_;
-    QTime time_;
-    QTimer *timer_;
-    void disableView();
-    bool opCheck(const QString &op, int errcnt, QString errstr);
-    void setupDevice();
+    Ui::AboutDialog *ui;
 };
 
-#endif // DEVICEWINDOW_H
+#endif // ABOUTDIALOG_H

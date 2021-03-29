@@ -22,6 +22,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QThread>
+#include "aboutdialog.h"
 #include "devicewindow.h"
 #include "ui_devicewindow.h"
 
@@ -69,6 +70,12 @@ void DeviceWindow::openDevice(const QString &serialstr)
     }
 }
 
+void DeviceWindow::on_actionAbout_triggered()
+{
+    AboutDialog about;
+    about.exec();
+}
+
 void DeviceWindow::on_pushButtonAttach_clicked()
 {
     int errcnt = 0;
@@ -85,6 +92,7 @@ void DeviceWindow::on_pushButtonAttach_clicked()
         QThread::msleep(100);  // Wait 100ms so that device enumeration process can, at least, start (this is not enough to guarantee enumeration, though)
     }
     if (opCheck(tr("attach-op"), errcnt, errstr)) {  // If error check passes  (the string "attach-op" should be translated to "Attach")
+        // Needed for improved responsiveness
         ui->checkBoxPower->setChecked(true);
         ui->checkBoxData->setChecked(true);
         // Note that update() will always confirm the true status of the lines
@@ -102,6 +110,7 @@ void DeviceWindow::on_pushButtonDetach_clicked()
         QThread::msleep(100);  // Wait 100ms to allow for device shutdown
     }
     if (opCheck(tr("detach-op"), errcnt, errstr)) {  // If error check passes (the string "detach-op" should be translated to "Detach")
+        // Needed for improved responsiveness
         ui->checkBoxPower->setChecked(false);
         ui->checkBoxData->setChecked(false);
         // Note that, as before, update() will always confirm the true status of the lines

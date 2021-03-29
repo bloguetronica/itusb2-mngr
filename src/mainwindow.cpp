@@ -20,6 +20,7 @@
 
 // Includes
 #include <QMessageBox>
+#include "aboutdialog.h"
 #include "devicewindow.h"
 #include "itusb2device.h"
 #include "mainwindow.h"
@@ -37,6 +38,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    AboutDialog about;
+    about.exec();
 }
 
 void MainWindow::on_comboBoxDevices_currentIndexChanged(int index)
