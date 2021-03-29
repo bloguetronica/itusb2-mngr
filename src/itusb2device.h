@@ -47,14 +47,20 @@ public:
     };
 
     ITUSB2Device();
+    ~ITUSB2Device();
 
     void configureSPIMode(uint8_t channel, const SPIMode &mode, int &errcnt, QString &errstr) const;
     void disableCS(uint8_t channel, int &errcnt, QString &errstr) const;
     void disableSPIDelays(uint8_t channel, int &errcnt, QString &errstr) const;
     uint16_t getCurrent(int &errcnt, QString &errstr) const;
+    bool getGPIO1(int &errcnt, QString &errstr) const;
+    bool getGPIO2(int &errcnt, QString &errstr) const;
     void reset(int &errcnt, QString &errstr) const;
     void selectCS(uint8_t channel, int &errcnt, QString &errstr) const;
+    void setGPIO1(bool value, int &errcnt, QString &errstr) const;
+    void setGPIO2(bool value, int &errcnt, QString &errstr) const;
 
+    void close();
     int open(const QString &serial);
 
     static QStringList listDevices(int &errcnt, QString &errstr);

@@ -19,6 +19,7 @@
 
 
 // Includes
+#include <QFileDialog>
 #include <QMessageBox>
 #include <QThread>
 #include "devicewindow.h"
@@ -29,6 +30,14 @@ DeviceWindow::DeviceWindow(QWidget *parent) :
     ui(new Ui::DeviceWindow)
 {
     ui->setupUi(this);
+    labelTime_ = new QLabel(tr("Time: 0s"));
+    this->statusBar()->addPermanentWidget(labelTime_);
+    labelLog_ = new QLabel(tr("Log: 0"));
+    this->statusBar()->addPermanentWidget(labelLog_);
+    labelMeas_ = new QLabel(tr("Meas.: 0"));
+    this->statusBar()->addPermanentWidget(labelMeas_);
+    ui->pushButtonClear->setFocus();
+    filepath_ = QDir::homePath();
 }
 
 DeviceWindow::~DeviceWindow()
@@ -58,6 +67,77 @@ void DeviceWindow::openDevice(const QString &serialstr)
         timer_->start(200);
         time_.start();  // Start counting the elapsed time from this point
     }
+}
+
+void DeviceWindow::on_pushButtonAttach_clicked()
+{
+    int errcnt = 0;
+    QString errstr;
+    if (device_.getGPIO1(errcnt, errstr) != device_.getGPIO2(errcnt, errstr)) {  // If GPIO.1 and GPIO.2 pins do not match in value, indicating an unusual state
+        device_.setGPIO1(true, errcnt, errstr);  // Set GPIO.1 to a logical high to switch off VBUS first
+        device_.setGPIO2(true, errcnt, errstr);  // Set GPIO.2 to a logical high to disconnect the data lines
+        QThread::msleep(100);  // Wait 100ms to allow for device shutdown
+    }
+    if (device_.getGPIO1(errcnt, errstr) && device_.getGPIO2(errcnt, errstr)) {  // If GPIO.1 and GPIO.2 are both set to a logical high
+        device_.setGPIO1(false, errcnt, errstr);  // Set GPIO.1 to a logical low to switch VBUS on
+        QThread::msleep(100);  // Wait 100ms in order to emulate a manual attachment of the device
+        device_.setGPIO2(false, errcnt, errstr);  // Set GPIO.2 to a logical low to connect the data lines
+        QThread::msleep(100);  // Wait 100ms so that device enumeration process can, at least, start (this is not enough to guarantee enumeration, though)
+    }
+    if (opCheck(tr("attach-op"), errcnt, errstr)) {  // If error check passes  (the string "attach-op" should be translated to "Attach")
+        ui->checkBoxPower->setChecked(true);
+        ui->checkBoxData->setChecked(true);
+        // Note that update() will always confirm the true status of the lines
+    }
+}
+
+void DeviceWindow::on_pushButtonDetach_clicked()
+{
+    int errcnt = 0;
+    QString errstr;
+    if (!device_.getGPIO1(errcnt, errstr) || !device_.getGPIO2(errcnt, errstr)) {  // If GPIO.1 or GPIO.2, or both, are set to a logical low
+        device_.setGPIO2(true, errcnt, errstr);  // Set GPIO.2 to a logical high so that the data lines are disconnected
+        QThread::msleep(100);  // Wait 100ms in order to emulate a manual detachment of the device
+        device_.setGPIO1(true, errcnt, errstr);  // Set GPIO.1 to a logical high to switch VBUS off
+        QThread::msleep(100);  // Wait 100ms to allow for device shutdown
+    }
+    if (opCheck(tr("detach-op"), errcnt, errstr)) {  // If error check passes (the string "detach-op" should be translated to "Detach")
+        ui->checkBoxPower->setChecked(false);
+        ui->checkBoxData->setChecked(false);
+        // Note that, as before, update() will always confirm the true status of the lines
+    }
+}
+
+// Partially disables device window
+void::DeviceWindow::disableView()
+{
+    ui->actionInformation->setEnabled(false);
+    ui->menuOptions->setEnabled(false);
+    ui->centralWidget->setEnabled(false);
+    ui->lcdNumberCurrent->setStyleSheet("");  // Just to ensure that any previously applied styles are removed
+    ui->labelOCFault->setStyleSheet("");
+    ui->statusBar->setEnabled(false);
+}
+
+// Checks for errors and validates (or ultimately halts) device operations
+bool DeviceWindow::opCheck(const QString &op, int errcnt, QString errstr)
+{
+    bool retval = true;
+    if (errcnt > 0) {
+        errstr.chop(1);  // Remove the last character, which is always a newline
+        QMessageBox::critical(this, tr("Error"), tr("%1 operation returned the following error(s):\n– %2", "", errcnt).arg(op, errstr.replace("\n", "\n– ")));
+        erracc_ += errcnt;
+        if (erracc_ > 10) {  // If the session accumulated more than 10 errors
+            timer_->stop();  // This prevents a segmentation fault
+            QMessageBox::critical(this, tr("Error"), tr("Detected too many errors. Device may not be properly connected.\n\nThe device window will be disabled."));
+            disableView();  // Disable device window
+            device_.reset(errcnt, errstr);  // Try to reset the device for sanity purposes, but don't check if it was successful
+            device_.close();  // Ensure that the device is freed, even if the previous device reset is not effective (device_.reset() also frees the device interface, as an effect of re-enumeration)
+            // It is essential that device_.close() is called, since some important checks rely on device_.isOpen() to retrieve a proper status
+        }
+        retval = false;  // Failed check
+    }
+    return retval;
 }
 
 // Prepares the device, performing basic configurations

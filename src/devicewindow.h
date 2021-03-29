@@ -22,6 +22,7 @@
 #define DEVICEWINDOW_H
 
 // Includes
+#include <QLabel>
 #include <QMainWindow>
 #include <QTime>
 #include <QTimer>
@@ -41,12 +42,20 @@ public:
 
     void openDevice(const QString &serialstr);
 
+private slots:
+    void on_pushButtonAttach_clicked();
+    void on_pushButtonDetach_clicked();
+
 private:
     Ui::DeviceWindow *ui;
+    int erracc_ = 0;
     ITUSB2Device device_;
-    QString serialstr_;
+    QLabel *labelLog_, *labelMeas_, *labelTime_;
+    QString filepath_, serialstr_;
     QTime time_;
     QTimer *timer_;
+    void disableView();
+    bool opCheck(const QString &op, int errcnt, QString errstr);
     void setupDevice();
 };
 

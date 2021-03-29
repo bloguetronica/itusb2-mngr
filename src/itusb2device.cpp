@@ -30,8 +30,17 @@ const uint16_t VID = 0x10C4;  // USB vendor ID
 const uint16_t PID = 0x8CDF;  // USB product ID
 const unsigned int TR_TIMEOUT = 100;  // Transfer timeout in milliseconds
 
-ITUSB2Device::ITUSB2Device()
+ITUSB2Device::ITUSB2Device() :
+    context_(nullptr),
+    handle_(nullptr),
+    deviceOpen_(false),
+    kernelAttached_(false)
 {
+}
+
+ITUSB2Device::~ITUSB2Device()
+{
+    close();  // The destructor is used to close the device, and this is essential so the device can be freed when the parent object is destroyed
 }
 
 // Configures the given SPI channel in respect to its chip select mode, clock frequency, polarity and phase
@@ -97,6 +106,28 @@ uint16_t ITUSB2Device::getCurrent(int &errcnt, QString &errstr) const
     return static_cast<uint16_t>(read_input_buf[0] << 4 | read_input_buf[1] >> 4);
 }
 
+// Gets the current value of the GPIO.1 pin on the CP2130
+bool ITUSB2Device::getGPIO1(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[2];
+    if (libusb_control_transfer(handle_, 0xC0, 0x20, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x20).\n"));
+    }
+    return ((0x10 & control_buf_in[1]) != 0x00);  // Returns one if bit 4 of byte 1, which corresponds to the GPIO.1 pin, is not set to zero
+}
+
+// Gets the current value of the GPIO.2 pin on the CP2130
+bool ITUSB2Device::getGPIO2(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[2];
+    if (libusb_control_transfer(handle_, 0xC0, 0x20, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x20).\n"));
+    }
+    return ((0x20 & control_buf_in[1]) != 0x00);  // Returns one if bit 5 of byte 1, which corresponds to the GPIO.2 pin, is not set to zero
+}
+
 void ITUSB2Device::reset(int &errcnt, QString &errstr) const  // Issues a reset to the CP2130, which in effect resets the entire device
 {
     if (libusb_control_transfer(handle_, 0x40, 0x10, 0x0000, 0x0000, nullptr, 0, TR_TIMEOUT) != 0) {
@@ -115,6 +146,47 @@ void ITUSB2Device::selectCS(uint8_t channel, int &errcnt, QString &errstr) const
     if (libusb_control_transfer(handle_, 0x40, 0x25, 0x0000, 0x0000, control_buf_out, sizeof(control_buf_out), TR_TIMEOUT) != sizeof(control_buf_out)) {
         errcnt += 1;
         errstr.append(QObject::tr("Failed control transfer (0x40, 0x25).\n"));
+    }
+}
+
+// Sets the GPIO.1 pin on the CP2130 to a given value
+void ITUSB2Device::setGPIO1(bool value, int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_out[4] = {
+        0x00, static_cast<uint8_t>(value << 4),  // Set the value of GPIO.1 to the intended value
+        0x00, 0x10                               // Set the mask so that only GPIO.1 is changed
+    };
+    if (libusb_control_transfer(handle_, 0x40, 0x21, 0x0000, 0x0000, control_buf_out, sizeof(control_buf_out), TR_TIMEOUT) != sizeof(control_buf_out)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0x40, 0x21).\n"));
+    }
+}
+
+// Sets the GPIO.2 pin on the CP2130 to a given value
+void ITUSB2Device::setGPIO2(bool value, int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_out[4] = {
+        0x00, static_cast<uint8_t>(value << 5),  // Set the value of GPIO.2 to the intended value
+        0x00, 0x20                               // Set the mask so that only GPIO.2 is changed
+    };
+    if (libusb_control_transfer(handle_, 0x40, 0x21, 0x0000, 0x0000, control_buf_out, sizeof(control_buf_out), TR_TIMEOUT) != sizeof(control_buf_out)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0x40, 0x21).\n"));
+    }
+}
+
+// Closes the device safely, if open
+void ITUSB2Device::close()
+{
+    if (deviceOpen_) {  // This condition avoids a segmentation fault if the calling algorithm tries, for some reason, to close the same device twice (e.g., if the device is already closed when the destructor is called)
+        libusb_release_interface(handle_, 0);  // Release the interface
+        if (kernelAttached_) {  // If a kernel driver was attached to the interface before
+            libusb_attach_kernel_driver(handle_, 0);  // Reattach the kernel driver
+            // No need to flag the kernel driver as detached here
+        }
+        libusb_close(handle_);  // Close the device
+        libusb_exit(context_);  // Deinitialize libusb
+        deviceOpen_ = false;  // Flag the device as closed
     }
 }
 
