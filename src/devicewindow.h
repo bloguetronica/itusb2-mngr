@@ -44,6 +44,9 @@ public:
 
 private slots:
     void on_actionAbout_triggered();
+    void on_actionInformation_triggered();
+    void on_checkBoxData_clicked();
+    void on_checkBoxPower_clicked();
     void on_pushButtonAttach_clicked();
     void on_pushButtonDetach_clicked();
 

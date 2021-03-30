@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     aboutdialog.cpp \
     devicewindow.cpp \
+    informationdialog.cpp \
     itusb2device.cpp \
     libusb-extra.c \
     main.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     aboutdialog.h \
     devicewindow.h \
+    informationdialog.h \
     itusb2device.h \
     libusb-extra.h \
     mainwindow.h
@@ -33,6 +35,7 @@ HEADERS += \
 FORMS += \
     aboutdialog.ui \
     devicewindow.ui \
+    informationdialog.ui \
     mainwindow.ui
 
 LIBS += -lusb-1.0

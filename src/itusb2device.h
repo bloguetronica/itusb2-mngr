@@ -55,6 +55,12 @@ public:
     uint16_t getCurrent(int &errcnt, QString &errstr) const;
     bool getGPIO1(int &errcnt, QString &errstr) const;
     bool getGPIO2(int &errcnt, QString &errstr) const;
+    uint8_t getMajorRelease(int &errcnt, QString &errstr) const;
+    QString getManufacturer(int &errcnt, QString &errstr) const;
+    uint8_t getMaxPower(int &errcnt, QString &errstr) const;
+    uint8_t getMinorRelease(int &errcnt, QString &errstr) const;
+    QString getProduct(int &errcnt, QString &errstr) const;
+    QString getSerial(int &errcnt, QString &errstr) const;
     void reset(int &errcnt, QString &errstr) const;
     void selectCS(uint8_t channel, int &errcnt, QString &errstr) const;
     void setGPIO1(bool value, int &errcnt, QString &errstr) const;

@@ -23,6 +23,7 @@
 #include <QMessageBox>
 #include <QThread>
 #include "aboutdialog.h"
+#include "informationdialog.h"
 #include "devicewindow.h"
 #include "ui_devicewindow.h"
 
@@ -74,6 +75,37 @@ void DeviceWindow::on_actionAbout_triggered()
 {
     AboutDialog about;
     about.exec();
+}
+
+void DeviceWindow::on_actionInformation_triggered()
+{
+    int errcnt = 0;
+    QString errstr;
+    InformationDialog info;
+    info.setManufacturerLabelText(device_.getManufacturer(errcnt, errstr));
+    info.setProductLabelText(device_.getProduct(errcnt, errstr));
+    info.setSerialLabelText(device_.getSerial(errcnt, errstr));  // It is important to read the serial number from the OTP ROM, instead of just passing the value of serialstr_
+    info.setRevisionLabelText(device_.getMajorRelease(errcnt, errstr), device_.getMinorRelease(errcnt, errstr));
+    info.setMaxPowerLabelText(device_.getMaxPower(errcnt, errstr));
+    if (opCheck(tr("device-information-retrieval-op"), errcnt, errstr)) {  // If error check passes (the string "device-information-retrieval-op" should be translated to "Device information retrieval")
+        info.exec();
+    }
+}
+
+void DeviceWindow::on_checkBoxData_clicked()
+{
+    int errcnt = 0;
+    QString errstr;
+    device_.setGPIO2(!ui->checkBoxData->isChecked(), errcnt, errstr);
+    opCheck(tr("data-switch-op"), errcnt, errstr);  // The string "data-switch-op" should be translated to "Data switch"
+}
+
+void DeviceWindow::on_checkBoxPower_clicked()
+{
+    int errcnt = 0;
+    QString errstr;
+    device_.setGPIO1(!ui->checkBoxPower->isChecked(), errcnt, errstr);
+    opCheck(tr("power-switch-op"), errcnt, errstr);  // The string "power-switch-op" should be translated to "Power switch"
 }
 
 void DeviceWindow::on_pushButtonAttach_clicked()

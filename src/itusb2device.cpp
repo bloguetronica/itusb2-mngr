@@ -128,6 +128,92 @@ bool ITUSB2Device::getGPIO2(int &errcnt, QString &errstr) const
     return ((0x20 & control_buf_in[1]) != 0x00);  // Returns one if bit 5 of byte 1, which corresponds to the GPIO.2 pin, is not set to zero
 }
 
+// Gets the major release version from the CP2130
+uint8_t ITUSB2Device::getMajorRelease(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[9];
+    if (libusb_control_transfer(handle_, 0xC0, 0x60, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x60).\n"));
+    }
+    return control_buf_in[6];
+}
+
+// Gets the manufacturer descriptor from the CP2130
+QString ITUSB2Device::getManufacturer(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[64];
+    if (libusb_control_transfer(handle_, 0xC0, 0x62, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x62).\n"));
+    }
+    QString manufacturer;
+    int end = control_buf_in[0] > 62 ? 62 : control_buf_in[0];
+    for (int i = 2; i < end; i += 2) {  // Descriptor length is limited to 30 characters, or 60 bytes
+        if (control_buf_in[i] != 0 || control_buf_in[i + 1] != 0) {  // Filter out null characters
+            manufacturer.append(QChar(control_buf_in[i + 1] << 8 | control_buf_in[i]));  // UTF-16LE conversion as per the USB 2.0 specification
+        }
+    }
+    return manufacturer;
+}
+
+// Gets the maximum power descriptor from the CP2130
+uint8_t ITUSB2Device::getMaxPower(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[9];
+    if (libusb_control_transfer(handle_, 0xC0, 0x60, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x60).\n"));
+    }
+    return control_buf_in[4];
+}
+
+// Gets the minor release version from the CP2130
+uint8_t ITUSB2Device::getMinorRelease(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[9];
+    if (libusb_control_transfer(handle_, 0xC0, 0x60, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x60).\n"));
+    }
+    return control_buf_in[7];
+}
+
+// Gets the product descriptor from the CP2130
+QString ITUSB2Device::getProduct(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[64];
+    if (libusb_control_transfer(handle_, 0xC0, 0x66, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x66).\n"));
+    }
+    QString product;
+    int end = control_buf_in[0] > 62 ? 62 : control_buf_in[0];
+    for (int i = 2; i < end; i += 2) {  // Descriptor length is limited to 30 characters, or 60 bytes
+        if (control_buf_in[i] != 0 || control_buf_in[i + 1] != 0) {  // Filter out null characters
+            product.append(QChar(control_buf_in[i + 1] << 8 | control_buf_in[i]));  // UTF-16LE conversion as per the USB 2.0 specification
+        }
+    }
+    return product;
+}
+
+// Gets the serial descriptor from the CP2130
+QString ITUSB2Device::getSerial(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[64];
+    if (libusb_control_transfer(handle_, 0xC0, 0x6A, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x6A).\n"));
+    }
+    QString serial;
+    for (int i = 2; i < control_buf_in[0]; i += 2) {
+        if (control_buf_in[i] != 0 || control_buf_in[i + 1] != 0) {  // Filter out null characters
+            serial.append(QChar(control_buf_in[i + 1] << 8 | control_buf_in[i]));  // UTF-16LE conversion as per the USB 2.0 specification
+        }
+    }
+    return serial;
+}
+
 void ITUSB2Device::reset(int &errcnt, QString &errstr) const  // Issues a reset to the CP2130, which in effect resets the entire device
 {
     if (libusb_control_transfer(handle_, 0x40, 0x10, 0x0000, 0x0000, nullptr, 0, TR_TIMEOUT) != 0) {
