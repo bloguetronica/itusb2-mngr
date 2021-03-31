@@ -22,10 +22,12 @@
 #define DEVICEWINDOW_H
 
 // Includes
+#include <QCloseEvent>
 #include <QLabel>
 #include <QMainWindow>
 #include <QTime>
 #include <QTimer>
+#include "datalog.h"
 #include "itusb2device.h"
 
 namespace Ui {
@@ -42,9 +44,19 @@ public:
 
     void openDevice(const QString &serialstr);
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 private slots:
     void on_actionAbout_triggered();
     void on_actionInformation_triggered();
+    void on_actionRate50_triggered();
+    void on_actionRate100_triggered();
+    void on_actionRate200_triggered();
+    void on_actionRate300_triggered();
+    void on_actionRate500_triggered();
+    void on_actionResetTime_triggered();
+    void on_actionSaveData_triggered();
     void on_checkBoxData_clicked();
     void on_checkBoxPower_clicked();
     void on_pushButtonAttach_clicked();
@@ -52,14 +64,20 @@ private slots:
 
 private:
     Ui::DeviceWindow *ui;
-    int erracc_ = 0;
+    DataLog log_;
     ITUSB2Device device_;
     QLabel *labelLog_, *labelMeas_, *labelTime_;
     QString filepath_, serialstr_;
     QTime time_;
     QTimer *timer_;
+    int erracc_ = 0;
+
+    void deleteData();
     void disableView();
     bool opCheck(const QString &op, int errcnt, QString errstr);
+    void resetTimeCount();
+    int saveDataPrompt();
+    void setLogActionsEnabled(bool value);
     void setupDevice();
 };
 

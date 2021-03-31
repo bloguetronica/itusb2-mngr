@@ -34,10 +34,10 @@ private:
 
 public:
     //Class definitions
+    static const bool CSMODEPP = true;      // Boolean corresponding to chip select push-pull mode, applicable to SPIMode/configureSPIMode()
     static const uint8_t CFRQ1500K = 0x03;  // Value corresponding to a clock frequency of 1.5MHz, applicable to SPIMode/configureSPIMode()
-    static const bool CPOL0 = false;    // Boolean corresponding to CPOL = 0, applicable to SPIMode/configureSPIMode()
-    static const bool CPHA0 = false;    // Boolean corresponding to CPHA = 0, applicable to SPIMode/configureSPIMode()
-    static const bool CSMODEPP = true;  // Boolean corresponding to chip select push-pull mode, applicable to SPIMode/configureSPIMode()
+    static const bool CPOL0 = false;        // Boolean corresponding to CPOL = 0, applicable to SPIMode/configureSPIMode()
+    static const bool CPHA0 = false;        // Boolean corresponding to CPHA = 0, applicable to SPIMode/configureSPIMode()
 
     struct SPIMode {
         bool csmode;
@@ -61,6 +61,7 @@ public:
     uint8_t getMinorRelease(int &errcnt, QString &errstr) const;
     QString getProduct(int &errcnt, QString &errstr) const;
     QString getSerial(int &errcnt, QString &errstr) const;
+    bool isOpen() const;
     void reset(int &errcnt, QString &errstr) const;
     void selectCS(uint8_t channel, int &errcnt, QString &errstr) const;
     void setGPIO1(bool value, int &errcnt, QString &errstr) const;

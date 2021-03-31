@@ -21,6 +21,7 @@
 // Includes
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTextStream>
 #include <QThread>
 #include "aboutdialog.h"
 #include "informationdialog.h"
@@ -71,6 +72,25 @@ void DeviceWindow::openDevice(const QString &serialstr)
     }
 }
 
+// Allows user to save pending data points
+void DeviceWindow::closeEvent(QCloseEvent *event)
+{
+    if (log_.hasNewData()) {  // If there are pending data points
+        int qmret = QMessageBox::warning(this, tr("Unsaved Data Points"), tr("There are data points in memory that were not saved yet.\n\nDo you wish to save them?"), QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
+        if (qmret == QMessageBox::Save) {  // If user clicked "Save"
+            int result;
+            do {
+                result = saveDataPrompt();  // Prompt user where to save, and save if successful (i.e., returns zero)
+            } while (result == 2);  // While errors occur (e.g., the user selected, or reselected a location that is write-protected)
+            if (result != 0) {
+                event->ignore();  // The user canceled the save, so, cancel window closing event
+            }
+        } else if (qmret == QMessageBox::Cancel) {  // If user clicked "Cancel"
+            event->ignore();  // Cancel window closing event
+        }  // If the user clicks "Discard", it is implied that the event will proceed and the window will be closed!
+    }
+}
+
 void DeviceWindow::on_actionAbout_triggered()
 {
     AboutDialog about;
@@ -90,6 +110,76 @@ void DeviceWindow::on_actionInformation_triggered()
     if (opCheck(tr("device-information-retrieval-op"), errcnt, errstr)) {  // If error check passes (the string "device-information-retrieval-op" should be translated to "Device information retrieval")
         info.exec();
     }
+}
+
+void DeviceWindow::on_actionRate50_triggered()
+{
+    timer_->setInterval(50);
+    ui->actionRate50->setChecked(true);
+    ui->actionRate100->setChecked(false);
+    ui->actionRate200->setChecked(false);
+    ui->actionRate300->setChecked(false);
+    ui->actionRate500->setChecked(false);
+}
+
+void DeviceWindow::on_actionRate100_triggered()
+{
+    timer_->setInterval(100);
+    ui->actionRate100->setChecked(true);
+    ui->actionRate50->setChecked(false);
+    ui->actionRate200->setChecked(false);
+    ui->actionRate300->setChecked(false);
+    ui->actionRate500->setChecked(false);
+}
+
+void DeviceWindow::on_actionRate200_triggered()
+{
+    timer_->setInterval(200);
+    ui->actionRate200->setChecked(true);
+    ui->actionRate50->setChecked(false);
+    ui->actionRate100->setChecked(false);
+    ui->actionRate300->setChecked(false);
+    ui->actionRate500->setChecked(false);
+}
+
+void DeviceWindow::on_actionRate300_triggered()
+{
+    timer_->setInterval(300);
+    ui->actionRate300->setChecked(true);
+    ui->actionRate50->setChecked(false);
+    ui->actionRate100->setChecked(false);
+    ui->actionRate200->setChecked(false);
+    ui->actionRate500->setChecked(false);
+}
+
+void DeviceWindow::on_actionRate500_triggered()
+{
+    timer_->setInterval(500);
+    ui->actionRate500->setChecked(true);
+    ui->actionRate50->setChecked(false);
+    ui->actionRate100->setChecked(false);
+    ui->actionRate200->setChecked(false);
+    ui->actionRate300->setChecked(false);
+}
+
+void DeviceWindow::on_actionResetTime_triggered()
+{
+    if (log_.isEmpty()) {
+        resetTimeCount();  // Reset time count
+    } else {
+        int qmret = QMessageBox::question(this, tr("Reset Time Count?"), tr("This action, besides resetting the elapsed time count, will also delete any previously acquired data points.\n\nDo you wish to proceed?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        if (qmret == QMessageBox::Yes) {  // If user clicked "Yes"
+            deleteData();  // Delete acquired data points
+            if (device_.isOpen()) {  // This condition is essential so the timer won't be restarted if, in the meantime, the device gets disconnected - In effect this prevents a segmentation fault!
+                resetTimeCount();  // Reset time count - This will restart the timer too!
+            }
+        }
+    }
+}
+
+void DeviceWindow::on_actionSaveData_triggered()
+{
+    saveDataPrompt();  // Unlike in closeEvent(), it is not required to obtain the result, since there will be no retries in any case (user can retry later)
 }
 
 void DeviceWindow::on_checkBoxData_clicked()
@@ -149,6 +239,14 @@ void DeviceWindow::on_pushButtonDetach_clicked()
     }
 }
 
+// Deletes any acquired data points
+void DeviceWindow::deleteData()
+{
+    log_.clear();
+    setLogActionsEnabled(false);  // And also disable logging related actions
+    labelLog_->setText(tr("Log: 0"));
+}
+
 // Partially disables device window
 void::DeviceWindow::disableView()
 {
@@ -179,6 +277,46 @@ bool DeviceWindow::opCheck(const QString &op, int errcnt, QString errstr)
         retval = false;  // Failed check
     }
     return retval;
+}
+
+// Resets (and restarts) the time count
+void DeviceWindow::resetTimeCount()
+{
+    timer_->start();  // Restart the timer using user settings
+    time_.start();  // Restart counting the elapsed time from zero
+    labelTime_->setText(tr("Time: 0s"));
+}
+
+// Saves logged data with prompt to the user
+int DeviceWindow::saveDataPrompt()
+{
+    int retval = 0;
+    QString csvstr = log_.toCSVString();  // Compiles acquired data points to CSV formatted string (note that implicit sharing is implemented in the QString class which, in this case, avoids unnecessary copying and minimizes RAM usage)
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save Logged Data to File"), filepath_, tr("CSV files (*.csv);;All files (*)"));
+    if (filename.isEmpty()) {  // Note that the previous dialog will return an empty string if the user cancels it
+        retval = 1;
+    } else {
+        QFile file(filename);
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+            QMessageBox::critical(this, tr("Error"), tr("Could not write to %1.\n\nPlease verify that you have write access to this file.").arg(QDir::toNativeSeparators(filename)));
+            retval = 2;
+        } else {
+            QTextStream out(&file);
+            out.setCodec("UTF-8");
+            out << csvstr;
+            file.close();
+            filepath_ = filename;
+            log_.noNewData();  // All data points were saved
+        }
+    }
+    return retval;
+}
+
+// Enables or disables logging related actions
+void DeviceWindow::setLogActionsEnabled(bool value)
+{
+    ui->actionSaveData->setEnabled(value);
+    ui->actionDeleteData->setEnabled(value);
 }
 
 // Prepares the device, performing basic configurations

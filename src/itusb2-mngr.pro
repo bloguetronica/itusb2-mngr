@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     aboutdialog.cpp \
+    datalog.cpp \
     devicewindow.cpp \
     informationdialog.cpp \
     itusb2device.cpp \
@@ -26,6 +27,8 @@ SOURCES += \
 
 HEADERS += \
     aboutdialog.h \
+    datalog.h \
+    datapoint.h \
     devicewindow.h \
     informationdialog.h \
     itusb2device.h \

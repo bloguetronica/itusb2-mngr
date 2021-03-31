@@ -214,7 +214,14 @@ QString ITUSB2Device::getSerial(int &errcnt, QString &errstr) const
     return serial;
 }
 
-void ITUSB2Device::reset(int &errcnt, QString &errstr) const  // Issues a reset to the CP2130, which in effect resets the entire device
+// Checks if the device is open
+bool ITUSB2Device::isOpen() const
+{
+    return deviceOpen_;  // Returns true if the device is open, or false otherwise
+}
+
+// Issues a reset to the CP2130, which in effect resets the entire device
+void ITUSB2Device::reset(int &errcnt, QString &errstr) const
 {
     if (libusb_control_transfer(handle_, 0x40, 0x10, 0x0000, 0x0000, nullptr, 0, TR_TIMEOUT) != 0) {
         errcnt += 1;

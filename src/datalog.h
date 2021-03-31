@@ -18,38 +18,31 @@
    Please feel free to contact me via e-mail: samuel.fmlourenco@gmail.com */
 
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef DATALOG_H
+#define DATALOG_H
 
 // Includes
-#include <QCloseEvent>
-#include <QMainWindow>
+#include <QString>
+#include <QVector>
+#include "datapoint.h"
 
-namespace Ui {
-class MainWindow;
-}
-
-class MainWindow : public QMainWindow
+class DataLog
 {
-    Q_OBJECT
+private:
+    QVector<DataPoint> dataPoints_;
+    bool newData_;
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    DataLog();
 
-protected:
-    void closeEvent(QCloseEvent *event);
+    bool hasNewData() const;
+    bool isEmpty() const;
+    size_t size() const;
+    QString toCSVString() const;
 
-private slots:
-    void on_actionAbout_triggered();
-    void on_comboBoxDevices_currentIndexChanged(int index);
-    void on_pushButtonOpen_clicked();
-    void on_pushButtonRefresh_clicked();
-
-private:
-    Ui::MainWindow *ui;
-
-    void refresh();
+    void append(const DataPoint &datapt);
+    void clear();
+    void noNewData();
 };
 
-#endif // MAINWINDOW_H
+#endif // DATALOG_H

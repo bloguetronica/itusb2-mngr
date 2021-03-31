@@ -40,6 +40,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// Instead of forcing any existing child windows to be closed, this will allow them to execute any pending tasks
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+    QList<QMainWindow *> childList = findChildren<QMainWindow *>();
+    for (QMainWindow *child : childList) {
+        child->close();  // This will "force" window closure, even if the user tries to cancel from the child's popup dialog
+    }
+}
+
 void MainWindow::on_actionAbout_triggered()
 {
     AboutDialog about;

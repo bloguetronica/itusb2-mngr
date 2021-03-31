@@ -18,38 +18,17 @@
    Please feel free to contact me via e-mail: samuel.fmlourenco@gmail.com */
 
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef DATAPOINT_H
+#define DATAPOINT_H
 
-// Includes
-#include <QCloseEvent>
-#include <QMainWindow>
-
-namespace Ui {
-class MainWindow;
-}
-
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
-
-public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-
-protected:
-    void closeEvent(QCloseEvent *event);
-
-private slots:
-    void on_actionAbout_triggered();
-    void on_comboBoxDevices_currentIndexChanged(int index);
-    void on_pushButtonOpen_clicked();
-    void on_pushButtonRefresh_clicked();
-
-private:
-    Ui::MainWindow *ui;
-
-    void refresh();
+struct DataPoint {
+    double time;
+    float curr;
+    bool up;
+    bool ud;
+    bool cd;
+    bool hs;
+    bool oc;
 };
 
-#endif // MAINWINDOW_H
+#endif // DATAPOINT_H
