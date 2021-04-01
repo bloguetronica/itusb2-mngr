@@ -23,7 +23,8 @@ SOURCES += \
     itusb2device.cpp \
     libusb-extra.c \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    metrics.cpp
 
 HEADERS += \
     aboutdialog.h \
@@ -33,7 +34,8 @@ HEADERS += \
     informationdialog.h \
     itusb2device.h \
     libusb-extra.h \
-    mainwindow.h
+    mainwindow.h \
+    metrics.h
 
 FORMS += \
     aboutdialog.ui \

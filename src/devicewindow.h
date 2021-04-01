@@ -29,6 +29,7 @@
 #include <QTimer>
 #include "datalog.h"
 #include "itusb2device.h"
+#include "metrics.h"
 
 namespace Ui {
 class DeviceWindow;
@@ -61,24 +62,31 @@ private slots:
     void on_checkBoxPower_clicked();
     void on_pushButtonAttach_clicked();
     void on_pushButtonDetach_clicked();
+    void on_pushButtonReset_clicked();
+    void update();
 
 private:
     Ui::DeviceWindow *ui;
     DataLog log_;
     ITUSB2Device device_;
+    Metrics metrics_;
     QLabel *labelLog_, *labelMeas_, *labelTime_;
     QString filepath_, serialstr_;
     QTime time_;
     QTimer *timer_;
     int erracc_ = 0;
 
+    void clearMetrics();
     void deleteData();
     void disableView();
+    void logDataPoint(float current, bool up, bool ud, bool cd, bool hs, bool oc);
     bool opCheck(const QString &op, int errcnt, QString errstr);
+    void resetDevice();
     void resetTimeCount();
     int saveDataPrompt();
     void setLogActionsEnabled(bool value);
     void setupDevice();
+    void updateView(bool up, bool ud, bool cd, bool hs, bool oc);
 };
 
 #endif // DEVICEWINDOW_H

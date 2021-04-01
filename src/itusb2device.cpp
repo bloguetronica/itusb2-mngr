@@ -128,6 +128,39 @@ bool ITUSB2Device::getGPIO2(int &errcnt, QString &errstr) const
     return ((0x20 & control_buf_in[1]) != 0x00);  // Returns one if bit 5 of byte 1, which corresponds to the GPIO.2 pin, is not set to zero
 }
 
+// Gets the current value of the GPIO.3 pin on the CP2130
+bool ITUSB2Device::getGPIO3(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[2];
+    if (libusb_control_transfer(handle_, 0xC0, 0x20, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x20).\n"));
+    }
+    return ((0x40 & control_buf_in[1]) != 0x00);  // Returns one if bit 6 of byte 1, which corresponds to the GPIO.3 pin, is not set to zero
+}
+
+// Gets the current value of the GPIO.4 pin on the CP2130
+bool ITUSB2Device::getGPIO4(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[2];
+    if (libusb_control_transfer(handle_, 0xC0, 0x20, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x20).\n"));
+    }
+    return ((0x80 & control_buf_in[1]) != 0x00);  // Returns one if bit 7 of byte 1, which corresponds to the GPIO.4 pin, is not set to zero
+}
+
+// Gets the current value of the GPIO.5 pin on the CP2130
+bool ITUSB2Device::getGPIO5(int &errcnt, QString &errstr) const
+{
+    unsigned char control_buf_in[2];
+    if (libusb_control_transfer(handle_, 0xC0, 0x20, 0x0000, 0x0000, control_buf_in, sizeof(control_buf_in), TR_TIMEOUT) != sizeof(control_buf_in)) {
+        errcnt += 1;
+        errstr.append(QObject::tr("Failed control transfer (0xC0, 0x20).\n"));
+    }
+    return ((0x01 & control_buf_in[0]) != 0x00);  // Returns one if bit 0 of byte 0, which corresponds to the GPIO.5 pin, is not set to zero
+}
+
 // Gets the major release version from the CP2130
 uint8_t ITUSB2Device::getMajorRelease(int &errcnt, QString &errstr) const
 {
