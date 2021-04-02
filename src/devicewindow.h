@@ -50,6 +50,7 @@ protected:
 
 private slots:
     void on_actionAbout_triggered();
+    void on_actionDeleteData_triggered();
     void on_actionInformation_triggered();
     void on_actionRate50_triggered();
     void on_actionRate100_triggered();
@@ -61,6 +62,7 @@ private slots:
     void on_checkBoxData_clicked();
     void on_checkBoxPower_clicked();
     void on_pushButtonAttach_clicked();
+    void on_pushButtonClear_clicked();
     void on_pushButtonDetach_clicked();
     void on_pushButtonReset_clicked();
     void update();

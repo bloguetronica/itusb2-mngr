@@ -98,6 +98,14 @@ void DeviceWindow::on_actionAbout_triggered()
     about.exec();
 }
 
+void DeviceWindow::on_actionDeleteData_triggered()
+{
+    int qmret = QMessageBox::question(this, tr("Delete Logged Data?"), tr("This action will delete any data points acquired until now.\n\nDo you wish to proceed?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    if (qmret == QMessageBox::Yes) {  // If user clicked "Yes"
+        deleteData();  // Delete acquired data points
+    }
+}
+
 void DeviceWindow::on_actionInformation_triggered()
 {
     int errcnt = 0;
@@ -220,6 +228,12 @@ void DeviceWindow::on_pushButtonAttach_clicked()
         ui->checkBoxData->setChecked(true);
         // Note that update() will always confirm the true status of the lines
     }
+}
+
+void DeviceWindow::on_pushButtonClear_clicked()
+{
+    clearMetrics();
+    ui->labelOCFault->clear();  // Clear "OC fault!" warning, if applicable
 }
 
 void DeviceWindow::on_pushButtonDetach_clicked()
