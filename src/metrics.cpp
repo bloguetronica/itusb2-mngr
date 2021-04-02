@@ -60,7 +60,7 @@ size_t Metrics::numberOfMeasurements() const
     return nmeas_;
 }
 
-// Clears metrics (corresponds to clearValues() in version 2.0, or cleanValues() in version 1.0, originally located in devicewindow.cpp)
+// Clears metrics
 void Metrics::clear()
 {
     nmeas_ = 0;  // Clearing nmeas_ (number of measurements) also clears avg_ (the average value)

@@ -24,6 +24,7 @@
 #include <QTextStream>
 #include <QThread>
 #include "aboutdialog.h"
+#include "datapoint.h"
 #include "informationdialog.h"
 #include "devicewindow.h"
 #include "ui_devicewindow.h"
@@ -309,7 +310,7 @@ void::DeviceWindow::disableView()
     ui->statusBar->setEnabled(false);
 }
 
-// Logs acquired data point
+// Logs an acquired data point
 void DeviceWindow::logDataPoint(float current, bool up, bool ud, bool cd, bool hs, bool oc)
 {
     DataPoint datapt;
