@@ -470,7 +470,7 @@ void DeviceWindow::updateView(bool up, bool ud, bool cd, bool hs, bool oc)
     } else {
         ui->labelStatus->setText(tr("Connection disabled"));
     }
-    int linkMode = lmdetetector_.detectedLinkMode(cd, hs);
+    int linkMode = lmdetector_.detectedLinkMode(cd, hs);
     if (linkMode == 1) {
         ui->labelMode->setText(tr("Device detected"));
     } else if (linkMode == 2) {

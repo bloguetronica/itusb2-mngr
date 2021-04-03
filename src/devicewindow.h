@@ -72,7 +72,7 @@ private:
     Ui::DeviceWindow *ui;
     DataLog log_;
     ITUSB2Device device_;
-    LinkModeDetector lmdetetector_;
+    LinkModeDetector lmdetector_;
     Metrics metrics_;
     QLabel *labelLog_, *labelMeas_, *labelTime_;
     QString filepath_, serialstr_;
