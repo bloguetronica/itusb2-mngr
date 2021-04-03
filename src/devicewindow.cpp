@@ -470,6 +470,18 @@ void DeviceWindow::updateView(bool up, bool ud, bool cd, bool hs, bool oc)
     } else {
         ui->labelStatus->setText(tr("Connection disabled"));
     }
+    int linkMode = lmdetetector_.detectedLinkMode(cd, hs);
+    if (linkMode == 1) {
+        ui->labelMode->setText(tr("Device detected"));
+    } else if (linkMode == 2) {
+        ui->labelMode->setText(tr("Full/low speed device"));
+    } else if (linkMode == 3) {
+        ui->labelMode->setText(tr("High speed device"));
+    } else if (linkMode == 4) {
+        ui->labelMode->setText(tr("Suspend mode"));
+    } else {
+        ui->labelMode->setText(tr("No device"));
+    }
     float value;
     if (ui->radioButtonDisplayAvg->isChecked()) {
         value = metrics_.average();  // Pass the average to be displayed

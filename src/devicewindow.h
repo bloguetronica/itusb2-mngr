@@ -29,6 +29,7 @@
 #include <QTimer>
 #include "datalog.h"
 #include "itusb2device.h"
+#include "linkmodedetector.h"
 #include "metrics.h"
 
 namespace Ui {
@@ -71,6 +72,7 @@ private:
     Ui::DeviceWindow *ui;
     DataLog log_;
     ITUSB2Device device_;
+    LinkModeDetector lmdetetector_;
     Metrics metrics_;
     QLabel *labelLog_, *labelMeas_, *labelTime_;
     QString filepath_, serialstr_;

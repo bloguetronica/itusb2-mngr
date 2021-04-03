@@ -22,6 +22,7 @@ SOURCES += \
     informationdialog.cpp \
     itusb2device.cpp \
     libusb-extra.c \
+    linkmodedetector.cpp \
     main.cpp \
     mainwindow.cpp \
     metrics.cpp
@@ -34,6 +35,7 @@ HEADERS += \
     informationdialog.h \
     itusb2device.h \
     libusb-extra.h \
+    linkmodedetector.h \
     mainwindow.h \
     metrics.h
 
