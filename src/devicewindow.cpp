@@ -288,7 +288,7 @@ void DeviceWindow::update()
     }
     QThread::usleep(100);  // Wait 100us, in order to prevent possible errors while disabling the chip select (workaround)
     device_.disableCS(0, errcnt, errstr);  // Disable the previously enabled chip select
-    if (opCheck(tr("update-op"), errcnt, errstr)) {  // Update values if no errors occur
+    if (opCheck(tr("update-op"), errcnt, errstr)) {  // Update values if no errors occur (the string "update-op" should be translated to "Update")
         float current = curr_code_sum / 20.0;  // Calculate the average current out of five readings for each point (current = curr_code / 4.0 for a single reading)
         if (ui->actionLogData->isChecked()) {
             logDataPoint(current, up, ud, cd, hs, oc);

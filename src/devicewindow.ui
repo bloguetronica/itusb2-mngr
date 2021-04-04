@@ -131,7 +131,7 @@
       <enum>QLCDNumber::Flat</enum>
      </property>
     </widget>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="groupBoxDisplay">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -141,7 +141,7 @@
       </rect>
      </property>
      <property name="title">
-      <string>GroupBox</string>
+      <string>Display</string>
      </property>
      <widget class="QRadioButton" name="radioButtonDisplayAct">
       <property name="geometry">
@@ -328,7 +328,7 @@
     <property name="title">
      <string>&amp;Options</string>
     </property>
-    <widget class="QMenu" name="menuUpdate_Rate">
+    <widget class="QMenu" name="menuUpdateRate">
      <property name="title">
       <string>&amp;Update Rate</string>
      </property>
@@ -338,7 +338,7 @@
      <addaction name="actionRate300"/>
      <addaction name="actionRate500"/>
     </widget>
-    <addaction name="menuUpdate_Rate"/>
+    <addaction name="menuUpdateRate"/>
     <addaction name="actionPersistent"/>
     <addaction name="separator"/>
     <addaction name="actionLogData"/>
@@ -382,7 +382,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>50ms</string>
+    <string>5&amp;0ms</string>
    </property>
   </action>
   <action name="actionRate100">
@@ -390,7 +390,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>100ms</string>
+    <string>&amp;100ms</string>
    </property>
   </action>
   <action name="actionRate200">
@@ -401,7 +401,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>200ms</string>
+    <string>&amp;200ms</string>
    </property>
   </action>
   <action name="actionRate300">
@@ -409,7 +409,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>300ms</string>
+    <string>&amp;300ms</string>
    </property>
   </action>
   <action name="actionRate500">
@@ -417,7 +417,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>500ms</string>
+    <string>&amp;500ms</string>
    </property>
   </action>
   <action name="actionPersistent">
