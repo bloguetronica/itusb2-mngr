@@ -41,11 +41,11 @@ LinkModeDetector::LinkModeDetector() :
 int LinkModeDetector::detectedLinkMode(bool cd, bool hs)
 {
     int retval;
-    if (cd == true) {
-        if (cd_ == false) {  // This, along with the previous condition, detects a rising edge on the UDCD signal
+    if (cd) {
+        if (!cd_) {  // This, along with the previous condition, detects a rising edge on the UDCD signal
             time_.start();
         }
-        if (hs == true) {
+        if (hs) {
             hsCapable_ = true;
             retval = 3;  // High speed link mode  asserted
         } else if (hsCapable_) {

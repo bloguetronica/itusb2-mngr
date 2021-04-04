@@ -2,7 +2,15 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+# Added to provide backwards compatibility (C++11 support)
+greaterThan(QT_MAJOR_VERSION, 4) {
+    CONFIG += c++11
+} else {
+    QMAKE_CXXFLAGS += -std=c++11
+}
+
+TARGET = itusb2-mngr
+TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -54,3 +62,23 @@ LIBS += -lusb-1.0
 
 RESOURCES += \
     resources.qrc
+
+# Added installation option
+unix {
+    isEmpty(PREFIX) {
+        PREFIX = /usr/local
+    }
+    target.path = $$PREFIX/bin
+    icon.files += icons/itusb2-mngr.png
+    icon.path = $$PREFIX/share/icons/hicolor/128x128/apps
+    shortcut.files = misc/itusb2-mngr.desktop
+    shortcut.path = $$PREFIX/share/applications
+    INSTALLS += icon
+    INSTALLS += shortcut
+}
+
+!isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    icons/itusb2-mngr.png \
+    misc/itusb2-mngr.desktop
