@@ -23,9 +23,9 @@
 
 // Includes
 #include <QCloseEvent>
+#include <QElapsedTimer>
 #include <QLabel>
 #include <QMainWindow>
-#include <QTime>
 #include <QTimer>
 #include "datalog.h"
 #include "itusb2device.h"
@@ -74,9 +74,9 @@ private:
     ITUSB2Device device_;
     LinkModeDetector lmdetector_;
     Metrics metrics_;
+    QElapsedTimer time_;  // QTime start() and elapsed() are now obsolete (version 1.1)
     QLabel *labelLog_, *labelMeas_, *labelTime_;
     QString filepath_, serialstr_;
-    QTime time_;
     QTimer *timer_;
     int erracc_ = 0;
 

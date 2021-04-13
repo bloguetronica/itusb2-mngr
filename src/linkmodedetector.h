@@ -22,13 +22,13 @@
 #define LINKMODEDETECTOR_H
 
 // Includes
-#include <QTime>
+#include <QElapsedTimer>
 
 class LinkModeDetector
 {
 private:
     bool cd_, hsCapable_;
-    QTime time_;
+    QElapsedTimer time_;  // QTime start() and elapsed() are now obsolete (version 1.1)
 
 public:
     LinkModeDetector();

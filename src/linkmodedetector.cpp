@@ -36,7 +36,7 @@ LinkModeDetector::LinkModeDetector() :
 // - 1 if link mode is not asserted
 // - 2 if full/low speed is asserted
 // - 3 if high speed is asserted
-// - 4 if device is in suspension mode (valid for high speed devices)
+// - 4 if device is in suspend mode (valid for high speed devices)
 // Note that this function also updates the private members
 int LinkModeDetector::detectedLinkMode(bool cd, bool hs)
 {
@@ -50,7 +50,7 @@ int LinkModeDetector::detectedLinkMode(bool cd, bool hs)
             retval = 3;  // High speed link mode  asserted
         } else if (hsCapable_) {
             retval = 4;  // Suspend mode asserted
-        } else if (time_.elapsed() < DET_TIMEOUT) {
+        } else if (time_.elapsed() < DET_TIMEOUT) {  // Note that this QElapsedTimer should be valid at this point, so there is no need to check it with isValid() here!
             retval = 1;  // Link detected, but mode is not asserted
         } else {
             retval = 2;  // Full/low speed link mode asserted
