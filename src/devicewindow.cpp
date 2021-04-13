@@ -246,7 +246,7 @@ void DeviceWindow::on_pushButtonReset_clicked()
     } else {
         int qmret = QMessageBox::question(this, tr("Reset Device?"), tr("This action, besides resetting the device, will also delete any previously acquired data points.\n\nDo you wish to proceed?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
         if (qmret == QMessageBox::Yes) {  // If user clicked "Yes"
-            if (device_.isOpen()) {  // This condition is required to prevent an error if, in the meantime, the device gets disconnected
+            if (device_.isOpen()) {  // This condition is required to prevent multiple errors if, in the meantime, the device gets disconnected
                 resetDevice();
             } else {
                 deleteData();  // Delete all data points, as an alternative to resetDevice()
