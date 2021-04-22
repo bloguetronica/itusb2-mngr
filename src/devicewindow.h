@@ -28,7 +28,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include "datalog.h"
-#include "itusb2device.h"
+#include "itusb2device.h"  // Also includes "cp2130.h"
 #include "linkmodedetector.h"
 #include "metrics.h"
 

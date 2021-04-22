@@ -1,4 +1,4 @@
-/* ITUSB2 device class for Qt - Version 1.0 for Debian Linux
+/* ITUSB2 device class for Qt - Version 1.0
    Copyright (c) 2021 Samuel Lourenço
 
    This library is free software: you can redistribute it and/or modify it
@@ -34,20 +34,17 @@ private:
 
 public:
     ITUSB2Device();
-    ~ITUSB2Device();
 
     void attach(int &errcnt, QString &errstr) const;
     void detach(int &errcnt, QString &errstr) const;
     float getCurrent(int &errcnt, QString &errstr) const;
     bool getConnectionStatus(int &errcnt, QString &errstr) const;
-    quint8 getMajorRelease(int &errcnt, QString &errstr) const;
-    QString getManufacturer(int &errcnt, QString &errstr) const;
-    quint8 getMaxPower(int &errcnt, QString &errstr) const;
-    quint8 getMinorRelease(int &errcnt, QString &errstr) const;
+    QString getManufacturerDesc(int &errcnt, QString &errstr) const;
     bool getOverCurrentStatus(int &errcnt, QString &errstr) const;
-    QString getProduct(int &errcnt, QString &errstr) const;
-    QString getSerial(int &errcnt, QString &errstr) const;
+    QString getProductDesc(int &errcnt, QString &errstr) const;
+    QString getSerialDesc(int &errcnt, QString &errstr) const;
     bool getSpeedStatus(int &errcnt, QString &errstr) const;
+    CP2130::USBConfig getUSBConfig(int &errcnt, QString &errstr) const;
     bool getUSBDataStatus(int &errcnt, QString &errstr) const;
     bool getUSBPowerStatus(int &errcnt, QString &errstr) const;
     bool isOpen() const;
