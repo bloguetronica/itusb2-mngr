@@ -261,12 +261,12 @@ void DeviceWindow::update()
 {
     int errcnt = 0;
     QString errstr;
+    float current = device_.getCurrent(errcnt, errstr);
     bool up = device_.getUSBPowerStatus(errcnt, errstr);
     bool ud = device_.getUSBDataStatus(errcnt, errstr);
     bool oc = device_.getOverCurrentStatus(errcnt, errstr);
     bool cd = device_.getConnectionStatus(errcnt, errstr);
     bool hs = device_.getSpeedStatus(errcnt, errstr);
-    float current = device_.getCurrent(errcnt, errstr);
     if (opCheck(tr("update-op"), errcnt, errstr)) {  // Update values if no errors occur (the string "update-op" should be translated to "Update")
         if (ui->actionLogData->isChecked()) {
             logDataPoint(current, up, ud, cd, hs, oc);
