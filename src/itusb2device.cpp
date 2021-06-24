@@ -1,4 +1,4 @@
-/* ITUSB2 device class for Qt - Version 1.0
+/* ITUSB2 device class for Qt - Version 2.0.0
    Copyright (c) 2021 Samuel Lourenço
 
    This library is free software: you can redistribute it and/or modify it
@@ -19,15 +19,15 @@
 
 
 // Includes
-#include <QObject>
 #include <QThread>
 #include "itusb2device.h"
 
 // Definitions
 const quint16 VID = 0x10C4;  // USB vendor ID
 const quint16 PID = 0x8CDF;  // USB product ID
+const size_t N_SAMPLES = 5;  // Number of samples per measurement, applicable to getCurrent()
 
-// Gets the raw value, corresponding to the measured current, from the LTC2312 ADC (private helper function since version 1.1)
+// Private convenience function that is used to get the raw current measurement reading from the LTC2312 ADC
 quint16 ITUSB2Device::getRawCurrent(int &errcnt, QString &errstr) const
 {
     unsigned char readCommandBuffer[8] = {
@@ -36,9 +36,10 @@ quint16 ITUSB2Device::getRawCurrent(int &errcnt, QString &errstr) const
         0x00,                   // Reserved
         0x02, 0x00, 0x00, 0x00  // Two bytes to read
     };
-    unsigned char readInputBuffer[2];
-    int bytesRead, bytesWritten;
+    int bytesWritten;
     cp2130_.bulkTransfer(0x01, readCommandBuffer, static_cast<int>(sizeof(readCommandBuffer)), &bytesWritten, errcnt, errstr);
+    unsigned char readInputBuffer[2];
+    int bytesRead;
     cp2130_.bulkTransfer(0x82, readInputBuffer, static_cast<int>(sizeof(readInputBuffer)), &bytesRead, errcnt, errstr);
     return static_cast<quint16>(readInputBuffer[0] << 4 | readInputBuffer[1] >> 4);
 }
@@ -52,8 +53,7 @@ ITUSB2Device::ITUSB2Device() :
 void ITUSB2Device::attach(int &errcnt, QString &errstr) const
 {
     if (getUSBPowerStatus(errcnt, errstr) != getUSBDataStatus(errcnt, errstr)) {  // If true, this condition indicates an unusual state
-        switchUSBPower(false, errcnt, errstr);  // Switch off VBUS first
-        switchUSBData(false, errcnt, errstr);  // Disconnect the data lines
+        switchUSB(false, errcnt, errstr);  // Switch VBUS off and disconnect the data lines
         QThread::msleep(100);  // Wait 100ms to allow for device shutdown
     }
     if (!getUSBPowerStatus(errcnt, errstr) && !getUSBDataStatus(errcnt, errstr)) {  // If both VBUS and data lines are disconnected
@@ -76,23 +76,30 @@ void ITUSB2Device::detach(int &errcnt, QString &errstr) const
 }
 
 // Gets the VBUS current
+// Important: SPI mode should be configured for channel 0, before using this function!
 float ITUSB2Device::getCurrent(int &errcnt, QString &errstr) const
 {
     cp2130_.selectCS(0, errcnt, errstr);  // Enable the chip select corresponding to channel 0, and disable any others
     getRawCurrent(errcnt, errstr);  // Discard this reading, as it will reflect a past measurement
-    quint16 curr_code_sum = 0;
-    for (int i = 0; i < 5; ++i) {
-        curr_code_sum += getRawCurrent(errcnt, errstr);  // Read the raw value (from the LTC2312 on channel 0) and add it to the sum
+    size_t currentCodeSum = 0;
+    for (size_t i = 0; i < N_SAMPLES; ++i) {
+        currentCodeSum += getRawCurrent(errcnt, errstr);  // Read the raw value (from the LTC2312 on channel 0) and add it to the sum
     }
     QThread::usleep(100);  // Wait 100us, in order to prevent possible errors while disabling the chip select (workaround)
     cp2130_.disableCS(0, errcnt, errstr);  // Disable the previously enabled chip select
-    return curr_code_sum / 20.0;  // Return the average current out of five readings for each point (current = curr_code / 4.0 for a single reading)
+    return currentCodeSum / (4.0 * N_SAMPLES);  // Return the average current out of "N_SAMPLES" [5] for each measurement (currentCode / 4.0 for a single reading)
 }
 
-// Gets the connection status (true for connection detected or false for connection not detected)
-bool ITUSB2Device::getConnectionStatus(int &errcnt, QString &errstr) const
+// Gets the DUT connection status (true for connection detected or false for connection not detected)
+bool ITUSB2Device::getDUTConnectionStatus(int &errcnt, QString &errstr) const
 {
     return cp2130_.getGPIO4(errcnt, errstr);  // Return the current state of the UDCD signal
+}
+
+// Gets the DUT link speed status (true for high-speed, or false for full/low speed or suspend mode)
+bool ITUSB2Device::getDUTSpeedStatus(int &errcnt, QString &errstr) const
+{
+    return cp2130_.getGPIO5(errcnt, errstr);  // Return the current state of the UDHS signal
 }
 
 // Gets the manufacturer descriptor from the device
@@ -102,7 +109,7 @@ QString ITUSB2Device::getManufacturerDesc(int &errcnt, QString &errstr) const
 }
 
 // Gets OC flag
-bool ITUSB2Device::getOverCurrentStatus(int &errcnt, QString &errstr) const
+bool ITUSB2Device::getOvercurrentStatus(int &errcnt, QString &errstr) const
 {
     return !cp2130_.getGPIO3(errcnt, errstr);  // Return the current state of the negated !UDOC signal
 }
@@ -117,12 +124,6 @@ QString ITUSB2Device::getProductDesc(int &errcnt, QString &errstr) const
 QString ITUSB2Device::getSerialDesc(int &errcnt, QString &errstr) const
 {
     return cp2130_.getSerialDesc(errcnt, errstr);
-}
-
-// Gets the link speed status (true for high-speed, or false for full/low speed or suspend mode)
-bool ITUSB2Device::getSpeedStatus(int &errcnt, QString &errstr) const
-{
-    return cp2130_.getGPIO5(errcnt, errstr);  // Return the current state of the UDHS signal
 }
 
 // Gets the USB configuration of the device
@@ -155,6 +156,7 @@ void ITUSB2Device::reset(int &errcnt, QString &errstr) const
     cp2130_.reset(errcnt, errstr);
 }
 
+// Sets up and prepares the device
 void ITUSB2Device::setup(int &errcnt, QString &errstr) const
 {
     CP2130::SPIMode mode;
@@ -170,16 +172,22 @@ void ITUSB2Device::setup(int &errcnt, QString &errstr) const
     cp2130_.disableCS(0, errcnt, errstr);  // Disable the previously enabled chip select
 }
 
-// Switches VBUS on or off
-void ITUSB2Device::switchUSBData(bool value, int &errcnt, QString &errstr) const
+// Switches both VBUS and the data lines on or off
+void ITUSB2Device::switchUSB(bool value, int &errcnt, QString &errstr) const
 {
-    cp2130_.setGPIO2(!value, errcnt, errstr);  // GPIO2 corresponds to the !UDEN signal
+    cp2130_.setGPIOs(CP2130::BMGPIOS * !value, CP2130::BMGPIO1 | CP2130::BMGPIO2 , errcnt, errstr);  // This operates GPIO.1 and GPIO.2 simultaneously
 }
 
 // Switches the USB data lines on or off
+void ITUSB2Device::switchUSBData(bool value, int &errcnt, QString &errstr) const
+{
+    cp2130_.setGPIO2(!value, errcnt, errstr);  // GPIO.2 corresponds to the !UDEN signal
+}
+
+// Switches VBUS on or off
 void ITUSB2Device::switchUSBPower(bool value, int &errcnt, QString &errstr) const
 {
-    cp2130_.setGPIO1(!value, errcnt, errstr);  // GPIO1 corresponds to the !UPEN signal
+    cp2130_.setGPIO1(!value, errcnt, errstr);  // GPIO.1 corresponds to the !UPEN signal
 }
 
 // Closes the device safely, if open

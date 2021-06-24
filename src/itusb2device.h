@@ -1,4 +1,4 @@
-/* ITUSB2 device class for Qt - Version 1.0
+/* ITUSB2 device class for Qt - Version 2.0.0
    Copyright (c) 2021 Samuel Lourenço
 
    This library is free software: you can redistribute it and/or modify it
@@ -22,7 +22,8 @@
 #define ITUSB2DEVICE_H
 
 // Includes
-#include <QStringList>  // Also includes QString
+#include <QString>
+#include <QStringList>
 #include "cp2130.h"
 
 class ITUSB2Device
@@ -38,18 +39,19 @@ public:
     void attach(int &errcnt, QString &errstr) const;
     void detach(int &errcnt, QString &errstr) const;
     float getCurrent(int &errcnt, QString &errstr) const;
-    bool getConnectionStatus(int &errcnt, QString &errstr) const;
+    bool getDUTConnectionStatus(int &errcnt, QString &errstr) const;
+    bool getDUTSpeedStatus(int &errcnt, QString &errstr) const;
     QString getManufacturerDesc(int &errcnt, QString &errstr) const;
-    bool getOverCurrentStatus(int &errcnt, QString &errstr) const;
+    bool getOvercurrentStatus(int &errcnt, QString &errstr) const;
     QString getProductDesc(int &errcnt, QString &errstr) const;
     QString getSerialDesc(int &errcnt, QString &errstr) const;
-    bool getSpeedStatus(int &errcnt, QString &errstr) const;
     CP2130::USBConfig getUSBConfig(int &errcnt, QString &errstr) const;
     bool getUSBDataStatus(int &errcnt, QString &errstr) const;
     bool getUSBPowerStatus(int &errcnt, QString &errstr) const;
     bool isOpen() const;
     void reset(int &errcnt, QString &errstr) const;
     void setup(int &errcnt, QString &errstr) const;
+    void switchUSB(bool value, int &errcnt, QString &errstr) const;
     void switchUSBData(bool value, int &errcnt, QString &errstr) const;
     void switchUSBPower(bool value, int &errcnt, QString &errstr) const;
 
@@ -59,4 +61,4 @@ public:
     static QStringList listDevices(int &errcnt, QString &errstr);
 };
 
-#endif // ITUSB2DEVICE_H
+#endif  // ITUSB2DEVICE_H

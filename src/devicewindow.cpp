@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.0 for Debian Linux
+/* ITUSB2 Manager - Version 1.1 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -264,9 +264,9 @@ void DeviceWindow::update()
     float current = device_.getCurrent(errcnt, errstr);
     bool up = device_.getUSBPowerStatus(errcnt, errstr);
     bool ud = device_.getUSBDataStatus(errcnt, errstr);
-    bool oc = device_.getOverCurrentStatus(errcnt, errstr);
-    bool cd = device_.getConnectionStatus(errcnt, errstr);
-    bool hs = device_.getSpeedStatus(errcnt, errstr);
+    bool oc = device_.getOvercurrentStatus(errcnt, errstr);
+    bool cd = device_.getDUTConnectionStatus(errcnt, errstr);
+    bool hs = device_.getDUTSpeedStatus(errcnt, errstr);
     if (opCheck(tr("update-op"), errcnt, errstr)) {  // Update values if no errors occur (the string "update-op" should be translated to "Update")
         if (ui->actionLogData->isChecked()) {
             logDataPoint(current, up, ud, cd, hs, oc);
@@ -438,17 +438,22 @@ void DeviceWindow::updateView(bool up, bool ud, bool cd, bool hs, bool oc)
     } else {
         ui->labelStatus->setText(tr("Connection disabled"));
     }
-    int linkMode = lmdetector_.detectedLinkMode(cd, hs);
-    if (linkMode == 1) {
-        ui->labelMode->setText(tr("Device detected"));
-    } else if (linkMode == 2) {
-        ui->labelMode->setText(tr("Full/low speed device"));
-    } else if (linkMode == 3) {
-        ui->labelMode->setText(tr("High speed device"));
-    } else if (linkMode == 4) {
-        ui->labelMode->setText(tr("Suspend mode"));
-    } else {
-        ui->labelMode->setText(tr("No device"));
+    switch (lmdetector_.detectedLinkMode(cd, hs)) {  // A switch statement is more efficient (implemented since version 1.1)
+        case 0:
+            ui->labelMode->setText(tr("No device"));
+            break;
+        case 1:
+            ui->labelMode->setText(tr("Device detected"));
+            break;
+        case 2:
+            ui->labelMode->setText(tr("Full/low speed device"));
+            break;
+        case 3:
+            ui->labelMode->setText(tr("High speed device"));
+            break;
+        case 4:
+            ui->labelMode->setText(tr("Suspend mode"));
+            break;
     }
     float value;
     if (ui->radioButtonDisplayAvg->isChecked()) {

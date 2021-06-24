@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.0 for Debian Linux
+/* ITUSB2 Manager - Version 1.1 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -93,4 +93,4 @@ private:
     void updateView(bool up, bool ud, bool cd, bool hs, bool oc);
 };
 
-#endif // DEVICEWINDOW_H
+#endif  // DEVICEWINDOW_H

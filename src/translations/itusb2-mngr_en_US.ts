@@ -10,7 +10,7 @@
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="68"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ITUSB2 Manager - Version 1.0&lt;br/&gt;© 2021 Samuel Lourenço&lt;/p&gt;&lt;p&gt;This program is distributed under the terms of the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0-standalone.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GNU GPL v3&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ITUSB2 Manager - Version 1.1&lt;br/&gt;© 2021 Samuel Lourenço&lt;/p&gt;&lt;p&gt;This program is distributed under the terms of the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0-standalone.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GNU GPL v3&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation></translation>
     </message>
 </context>
@@ -183,25 +183,25 @@
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="37"/>
-        <location filename="../devicewindow.cpp" line="406"/>
+        <location filename="../devicewindow.cpp" line="384"/>
         <source>Time: 0s</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="39"/>
-        <location filename="../devicewindow.cpp" line="313"/>
+        <location filename="../devicewindow.cpp" line="291"/>
         <source>Log: 0</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="41"/>
-        <location filename="../devicewindow.cpp" line="305"/>
+        <location filename="../devicewindow.cpp" line="283"/>
         <source>Meas.: 0</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="57"/>
-        <location filename="../devicewindow.cpp" line="385"/>
+        <location filename="../devicewindow.cpp" line="363"/>
         <source>Critical Error</source>
         <translation></translation>
     </message>
@@ -215,12 +215,12 @@ This is a critical error and execution will be aborted.</source>
     <message>
         <location filename="../devicewindow.cpp" line="60"/>
         <location filename="../devicewindow.cpp" line="63"/>
-        <location filename="../devicewindow.cpp" line="348"/>
-        <location filename="../devicewindow.cpp" line="352"/>
-        <location filename="../devicewindow.cpp" line="388"/>
-        <location filename="../devicewindow.cpp" line="391"/>
-        <location filename="../devicewindow.cpp" line="420"/>
-        <location filename="../devicewindow.cpp" line="459"/>
+        <location filename="../devicewindow.cpp" line="326"/>
+        <location filename="../devicewindow.cpp" line="330"/>
+        <location filename="../devicewindow.cpp" line="366"/>
+        <location filename="../devicewindow.cpp" line="369"/>
+        <location filename="../devicewindow.cpp" line="398"/>
+        <location filename="../devicewindow.cpp" line="427"/>
         <source>Error</source>
         <translation></translation>
     </message>
@@ -266,61 +266,61 @@ Do you wish to proceed?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="119"/>
+        <location filename="../devicewindow.cpp" line="120"/>
         <source>device-information-retrieval-op</source>
         <translation>Device information retrieval</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="179"/>
+        <location filename="../devicewindow.cpp" line="180"/>
         <source>Reset Time Count?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="179"/>
+        <location filename="../devicewindow.cpp" line="180"/>
         <source>This action, besides resetting the elapsed time count, will also delete any previously acquired data points.
 
 Do you wish to proceed?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="199"/>
+        <location filename="../devicewindow.cpp" line="200"/>
         <source>data-switch-op</source>
         <translation>Data switch</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="207"/>
+        <location filename="../devicewindow.cpp" line="208"/>
         <source>power-switch-op</source>
         <translation>Power switch</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="225"/>
+        <location filename="../devicewindow.cpp" line="216"/>
         <source>attach-op</source>
         <translation>Attach</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="249"/>
+        <location filename="../devicewindow.cpp" line="235"/>
         <source>detach-op</source>
         <translation>Detach</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="262"/>
+        <location filename="../devicewindow.cpp" line="248"/>
         <source>Reset Device?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="262"/>
+        <location filename="../devicewindow.cpp" line="248"/>
         <source>This action, besides resetting the device, will also delete any previously acquired data points.
 
 Do you wish to proceed?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="291"/>
+        <location filename="../devicewindow.cpp" line="270"/>
         <source>update-op</source>
         <translation>Update</translation>
     </message>
     <message numerus="yes">
-        <location filename="../devicewindow.cpp" line="348"/>
+        <location filename="../devicewindow.cpp" line="326"/>
         <source>%1 operation returned the following error(s):
 – %2</source>
         <translation>
@@ -331,55 +331,55 @@ Do you wish to proceed?</source>
         </translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="352"/>
+        <location filename="../devicewindow.cpp" line="330"/>
         <source>Detected too many errors. Device may not be properly connected.
 
 The device window will be disabled.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="373"/>
+        <location filename="../devicewindow.cpp" line="351"/>
         <source>reset-op</source>
         <translation>Reset</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="385"/>
+        <location filename="../devicewindow.cpp" line="363"/>
         <source>Could not reinitialize libusb.
 
 This is a critical error and execution will be aborted.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="388"/>
+        <location filename="../devicewindow.cpp" line="366"/>
         <source>Device disconnected.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="391"/>
+        <location filename="../devicewindow.cpp" line="369"/>
         <source>Device ceased to be available.
 
 Please verify that the device is not in use by another application.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="414"/>
+        <location filename="../devicewindow.cpp" line="392"/>
         <source>Save Logged Data to File</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="414"/>
+        <location filename="../devicewindow.cpp" line="392"/>
         <source>CSV files (*.csv);;All files (*)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="420"/>
+        <location filename="../devicewindow.cpp" line="398"/>
         <source>Could not write to %1.
 
 Please verify that you have write access to this file.</source>
         <translation></translation>
     </message>
     <message numerus="yes">
-        <location filename="../devicewindow.cpp" line="459"/>
+        <location filename="../devicewindow.cpp" line="427"/>
         <source>Setup operation returned the following error(s):
 – %1
 
@@ -396,57 +396,57 @@ Please try accessing the device again.</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="469"/>
+        <location filename="../devicewindow.cpp" line="437"/>
         <source>Connection enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="471"/>
+        <location filename="../devicewindow.cpp" line="439"/>
         <source>Connection disabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="475"/>
+        <location filename="../devicewindow.cpp" line="446"/>
         <source>Device detected</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="477"/>
+        <location filename="../devicewindow.cpp" line="449"/>
         <source>Full/low speed device</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="479"/>
+        <location filename="../devicewindow.cpp" line="452"/>
         <source>High speed device</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="481"/>
+        <location filename="../devicewindow.cpp" line="455"/>
         <source>Suspend mode</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="483"/>
+        <location filename="../devicewindow.cpp" line="443"/>
         <source>No device</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="507"/>
+        <location filename="../devicewindow.cpp" line="480"/>
         <source>OC fault!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="516"/>
+        <location filename="../devicewindow.cpp" line="489"/>
         <source>Time: %1s</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="517"/>
+        <location filename="../devicewindow.cpp" line="490"/>
         <source>Log: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="518"/>
+        <location filename="../devicewindow.cpp" line="491"/>
         <source>Meas.: %1</source>
         <translation></translation>
     </message>
@@ -547,93 +547,115 @@ This is a critical error and execution will be aborted.</source>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../itusb2device.cpp" line="55"/>
-        <source>Failed control transfer (0x40, 0x31).
+        <location filename="../cp2130.cpp" line="121"/>
+        <source>In bulkTransfer(): device is not open.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="68"/>
-        <location filename="../itusb2device.cpp" line="274"/>
-        <source>Failed control transfer (0x40, 0x25).
+        <location filename="../cp2130.cpp" line="125"/>
+        <source>Failed bulk OUT transfer to endpoint %1 (address 0x%2).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="84"/>
-        <source>Failed control transfer (0x40, 0x33).
+        <location filename="../cp2130.cpp" line="127"/>
+        <source>Failed bulk IN transfer from endpoint %1 (address 0x%2).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="101"/>
-        <source>Failed bulk OUT transfer to endpoint 1 (address 0x01).
+        <location filename="../cp2130.cpp" line="137"/>
+        <source>In configureSPIDelays(): SPI channel value must be between 0 and 10.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="104"/>
-        <source>Failed bulk IN transfer from endpoint 2 (address 0x82).
+        <location filename="../cp2130.cpp" line="155"/>
+        <source>In configureSPIMode(): SPI channel value must be between 0 and 10.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="115"/>
-        <location filename="../itusb2device.cpp" line="126"/>
-        <location filename="../itusb2device.cpp" line="137"/>
-        <location filename="../itusb2device.cpp" line="148"/>
-        <location filename="../itusb2device.cpp" line="159"/>
-        <source>Failed control transfer (0xC0, 0x20).
+        <location filename="../cp2130.cpp" line="170"/>
+        <source>In controlTransfer(): device is not open.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="170"/>
-        <location filename="../itusb2device.cpp" line="199"/>
-        <location filename="../itusb2device.cpp" line="210"/>
-        <source>Failed control transfer (0xC0, 0x60).
+        <location filename="../cp2130.cpp" line="173"/>
+        <source>Failed control transfer (0x%1, 0x%2).
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="181"/>
-        <source>Failed control transfer (0xC0, 0x62).
+        <location filename="../cp2130.cpp" line="182"/>
+        <source>In disableCS(): SPI channel value must be between 0 and 10.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="221"/>
-        <source>Failed control transfer (0xC0, 0x66).
+        <location filename="../cp2130.cpp" line="197"/>
+        <source>In disableSPIDelays(): SPI channel value must be between 0 and 10.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="239"/>
-        <source>Failed control transfer (0xC0, 0x6A).
+        <location filename="../cp2130.cpp" line="215"/>
+        <source>In enableCS(): SPI channel value must be between 0 and 10.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="261"/>
-        <source>Failed control transfer (0x40, 0x10).
+        <location filename="../cp2130.cpp" line="239"/>
+        <source>In getCS(): SPI channel value must be between 0 and 10.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="287"/>
-        <location filename="../itusb2device.cpp" line="300"/>
-        <source>Failed control transfer (0x40, 0x21).
+        <location filename="../cp2130.cpp" line="469"/>
+        <source>In getSPIDelays(): SPI channel value must be between 0 and 10.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="362"/>
+        <location filename="../cp2130.cpp" line="492"/>
+        <source>In getSPIMode(): SPI channel value must be between 0 and 10.
+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cp2130.cpp" line="564"/>
+        <source>In selectCS(): SPI channel value must be between 0 and 10.
+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cp2130.cpp" line="702"/>
+        <source>In writeManufacturerDesc(): manufacturer descriptor string cannot be longer than 62 characters.
+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cp2130.cpp" line="761"/>
+        <source>In writeProductDesc(): product descriptor string cannot be longer than 62 characters.
+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cp2130.cpp" line="796"/>
+        <source>In writeSerialDesc(): serial descriptor string cannot be longer than 30 characters.
+</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../cp2130.cpp" line="884"/>
         <source>Could not initialize libusb.
 </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../itusb2device.cpp" line="368"/>
+        <location filename="../cp2130.cpp" line="890"/>
         <source>Failed to retrieve a list of devices.
 </source>
         <translation></translation>

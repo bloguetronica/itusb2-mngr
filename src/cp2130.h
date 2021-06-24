@@ -1,4 +1,4 @@
-/* CP2130 class for Qt - Version 1.0.0
+/* CP2130 class for Qt - Version 1.1.1
    Copyright (c) 2021 Samuel Lourenço
 
    This library is free software: you can redistribute it and/or modify it
@@ -41,6 +41,8 @@ public:
     static const quint8 WRITE = 0x01;      // Write command, to be used with bulkTransfer()
     static const quint8 WRITEREAD = 0x02;  // WriteRead command, to be used with bulkTransfer()
     static const quint8 READWRTR = 0x04;   // ReadWithRTR command, to be used with bulkTransfer()
+    static const quint8 GET = 0xC0;        // Device-to-Host vendor request, to be used with controlTransfer()
+    static const quint8 SET = 0x40;        // Host-to-Device vendor request, to be used with controlTransfer()
 
     // The following masks are applicable to the value returned by getLockWord()
     static const quint16 LWVID = 0x0001;      // Mask for the vendor ID lock bit

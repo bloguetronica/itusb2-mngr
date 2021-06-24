@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.0 for Debian Linux
+/* ITUSB2 Manager - Version 1.1 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -36,4 +36,4 @@ public:
     int detectedLinkMode(bool cd, bool hs);
 };
 
-#endif // LINKMODEDETECTOR_H
+#endif  // LINKMODEDETECTOR_H
