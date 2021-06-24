@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.0 for Debian Linux
+/* ITUSB2 Manager - Version 1.1 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -22,13 +22,13 @@
 #define LINKMODEDETECTOR_H
 
 // Includes
-#include <QTime>
+#include <QElapsedTimer>
 
 class LinkModeDetector
 {
 private:
     bool cd_, hsCapable_;
-    QTime time_;
+    QElapsedTimer time_;  // QTime start() and elapsed() are now obsolete (version 1.1)
 
 public:
     LinkModeDetector();
@@ -36,4 +36,4 @@ public:
     int detectedLinkMode(bool cd, bool hs);
 };
 
-#endif // LINKMODEDETECTOR_H
+#endif  // LINKMODEDETECTOR_H
