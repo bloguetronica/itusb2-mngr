@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.1 for Debian Linux
+/* ITUSB2 Manager - Version 1.2 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -26,9 +26,10 @@
 #include <QElapsedTimer>
 #include <QLabel>
 #include <QMainWindow>
+#include <QString>
 #include <QTimer>
 #include "datalog.h"
-#include "itusb2device.h"  // Also includes "cp2130.h"
+#include "itusb2device.h"
 #include "linkmodedetector.h"
 #include "metrics.h"
 
@@ -74,7 +75,7 @@ private:
     ITUSB2Device device_;
     LinkModeDetector lmdetector_;
     Metrics metrics_;
-    QElapsedTimer time_;  // QTime start() and elapsed() are now obsolete (version 1.1)
+    QElapsedTimer time_;  // QTime::start() and QTime::elapsed() are now obsolete (version 1.1)
     QLabel *labelLog_, *labelMeas_, *labelTime_;
     QString filepath_, serialstr_;
     QTimer *timer_;
