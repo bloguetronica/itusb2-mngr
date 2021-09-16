@@ -454,19 +454,19 @@ void DeviceWindow::updateView(bool up, bool ud, bool cd, bool hs, bool oc)
         ui->labelStatus->setText(tr("Connection disabled"));
     }
     switch (lmdetector_.detectedLinkMode(cd, hs)) {  // A switch statement is more efficient (implemented since version 1.1)
-        case 0:
+        case LinkModeDetector::NO_DEVICE:
             ui->labelMode->setText(tr("No device"));
             break;
-        case 1:
+        case LinkModeDetector::DETECTED:
             ui->labelMode->setText(tr("Device detected"));
             break;
-        case 2:
+        case LinkModeDetector::FULL_SPEED:
             ui->labelMode->setText(tr("Full/low speed device"));
             break;
-        case 3:
+        case LinkModeDetector::HIGH_SPEED:
             ui->labelMode->setText(tr("High speed device"));
             break;
-        case 4:
+        case LinkModeDetector::SUSPEND:
             ui->labelMode->setText(tr("Suspend mode"));
             break;
     }

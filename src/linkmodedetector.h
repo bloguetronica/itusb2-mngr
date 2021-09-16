@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.1 for Debian Linux
+/* ITUSB2 Manager - Version 1.2 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -28,9 +28,16 @@ class LinkModeDetector
 {
 private:
     bool cd_, hsCapable_;
-    QElapsedTimer time_;  // QTime start() and elapsed() are now obsolete (version 1.1)
+    QElapsedTimer time_;  // QTime::start() and QTime::elapsed() are now obsolete (version 1.1)
 
 public:
+    // Class definitions
+    static const int NO_DEVICE = 0;   // Returned by detectedLinkMode() if no device is detected
+    static const int DETECTED = 1;    // Returned by detectedLinkMode() if a device is detected, but the link mode is not asserted
+    static const int FULL_SPEED = 2;  // Returned by detectedLinkMode() if full/low speed is asserted
+    static const int HIGH_SPEED = 3;  // Returned by detectedLinkMode() if high speed is asserted
+    static const int SUSPEND = 4;     // Returned by detectedLinkMode() if device is in suspend mode (only valid for high speed devices)
+
     LinkModeDetector();
 
     int detectedLinkMode(bool cd, bool hs);
