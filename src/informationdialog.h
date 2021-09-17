@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.1 for Debian Linux
+/* ITUSB2 Manager - Version 1.2 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -23,6 +23,7 @@
 
 // Includes
 #include <QDialog>
+#include <QString>
 
 namespace Ui {
 class InformationDialog;

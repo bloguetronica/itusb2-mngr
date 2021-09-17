@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.1 for Debian Linux
+/* ITUSB2 Manager - Version 1.2 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -31,12 +31,7 @@ LinkModeDetector::LinkModeDetector() :
 {
 }
 
-// Returns the link mode, represented by an int value as follows:
-// - 0 if no device is detected
-// - 1 if link mode is not asserted
-// - 2 if full/low speed is asserted
-// - 3 if high speed is asserted
-// - 4 if device is in suspend mode (valid for high speed devices)
+// Returns the link mode determined from the DUT (device under test) connection and link speed status
 // Note that this function also updates the private members
 int LinkModeDetector::detectedLinkMode(bool cd, bool hs)
 {
@@ -47,17 +42,17 @@ int LinkModeDetector::detectedLinkMode(bool cd, bool hs)
         }
         if (hs) {
             hsCapable_ = true;
-            retval = 3;  // High speed link mode  asserted
+            retval = HIGH_SPEED;
         } else if (hsCapable_) {
-            retval = 4;  // Suspend mode asserted
+            retval = SUSPEND;
         } else if (time_.elapsed() < DET_TIMEOUT) {  // Note that this QElapsedTimer should be valid at this point, so there is no need to check it with isValid() here!
-            retval = 1;  // Link detected, but mode is not asserted
+            retval = DETECTED;
         } else {
-            retval = 2;  // Full/low speed link mode asserted
+            retval = FULL_SPEED;
         }
     } else {
         hsCapable_ = false;
-        retval = 0;
+        retval = NO_DEVICE;
     }
     cd_ = cd;  // Update device detection status
     return retval;
