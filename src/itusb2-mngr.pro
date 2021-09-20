@@ -58,6 +58,8 @@ FORMS += \
 TRANSLATIONS += \
     translations/itusb2-mngr_en.ts \
     translations/itusb2-mngr_en_US.ts \
+    translations/itusb2-mngr_pt.ts \
+    translations/itusb2-mngr_pt_BR.ts \
     translations/itusb2-mngr_pt_PT.ts
 
 LIBS += -lusb-1.0
