@@ -223,7 +223,8 @@ Este é um erro crítico e a execução será abortada.</translation>
         <location filename="../devicewindow.cpp" line="380"/>
         <location filename="../devicewindow.cpp" line="383"/>
         <location filename="../devicewindow.cpp" line="412"/>
-        <location filename="../devicewindow.cpp" line="443"/>
+        <location filename="../devicewindow.cpp" line="442"/>
+        <location filename="../devicewindow.cpp" line="447"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
@@ -399,8 +400,15 @@ Please verify that you have write access to this file.</source>
 
 Por favor, verifique se tem permissões de escrita sobre este ficheiro.</translation>
     </message>
+    <message>
+        <location filename="../devicewindow.cpp" line="442"/>
+        <source>Device disconnected.
+
+Please reconnect it and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
-        <location filename="../devicewindow.cpp" line="443"/>
+        <location filename="../devicewindow.cpp" line="447"/>
         <source>Setup operation returned the following error(s):
 – %1
 
@@ -417,37 +425,37 @@ Por favor, tente aceder novamente ao dispositivo.</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="452"/>
+        <location filename="../devicewindow.cpp" line="457"/>
         <source>Connection enabled</source>
         <translation>Ligação habilitada</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="454"/>
+        <location filename="../devicewindow.cpp" line="459"/>
         <source>Connection disabled</source>
         <translation>Ligação desabilitada</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="461"/>
+        <location filename="../devicewindow.cpp" line="466"/>
         <source>Device detected</source>
         <translation>Dispositivo detectado</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="464"/>
+        <location filename="../devicewindow.cpp" line="469"/>
         <source>Full/low speed device</source>
         <translation>Dispositivo &apos;full/low speed&apos;</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="467"/>
+        <location filename="../devicewindow.cpp" line="472"/>
         <source>High speed device</source>
         <translation>Dispositivo &apos;high speed&apos;</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="470"/>
+        <location filename="../devicewindow.cpp" line="475"/>
         <source>Suspend mode</source>
         <translation>Modo de suspensão</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="458"/>
+        <location filename="../devicewindow.cpp" line="463"/>
         <source>No device</source>
         <translation>Sem dispositivo</translation>
     </message>
@@ -461,22 +469,22 @@ The device window will be disabled.</source>
 A janela do dispositivo será desabilitada.</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="495"/>
+        <location filename="../devicewindow.cpp" line="500"/>
         <source>OC fault!</source>
         <translation>Falha SC!</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="504"/>
+        <location filename="../devicewindow.cpp" line="509"/>
         <source>Time: %1s</source>
         <translation>Tempo: %1s</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="505"/>
+        <location filename="../devicewindow.cpp" line="510"/>
         <source>Log: %1</source>
         <translation>Reg.: %1</translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="506"/>
+        <location filename="../devicewindow.cpp" line="511"/>
         <source>Meas.: %1</source>
         <translation>Mdcs.: %1</translation>
     </message>

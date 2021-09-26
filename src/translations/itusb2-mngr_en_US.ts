@@ -221,7 +221,8 @@ This is a critical error and execution will be aborted.</source>
         <location filename="../devicewindow.cpp" line="380"/>
         <location filename="../devicewindow.cpp" line="383"/>
         <location filename="../devicewindow.cpp" line="412"/>
-        <location filename="../devicewindow.cpp" line="443"/>
+        <location filename="../devicewindow.cpp" line="442"/>
+        <location filename="../devicewindow.cpp" line="447"/>
         <source>Error</source>
         <translation></translation>
     </message>
@@ -379,8 +380,15 @@ Please verify that the device is not in use by another application.</source>
 Please verify that you have write access to this file.</source>
         <translation></translation>
     </message>
+    <message>
+        <location filename="../devicewindow.cpp" line="442"/>
+        <source>Device disconnected.
+
+Please reconnect it and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
-        <location filename="../devicewindow.cpp" line="443"/>
+        <location filename="../devicewindow.cpp" line="447"/>
         <source>Setup operation returned the following error(s):
 – %1
 
@@ -397,37 +405,37 @@ Please try accessing the device again.</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="452"/>
+        <location filename="../devicewindow.cpp" line="457"/>
         <source>Connection enabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="454"/>
+        <location filename="../devicewindow.cpp" line="459"/>
         <source>Connection disabled</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="461"/>
+        <location filename="../devicewindow.cpp" line="466"/>
         <source>Device detected</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="464"/>
+        <location filename="../devicewindow.cpp" line="469"/>
         <source>Full/low speed device</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="467"/>
+        <location filename="../devicewindow.cpp" line="472"/>
         <source>High speed device</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="470"/>
+        <location filename="../devicewindow.cpp" line="475"/>
         <source>Suspend mode</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="458"/>
+        <location filename="../devicewindow.cpp" line="463"/>
         <source>No device</source>
         <translation></translation>
     </message>
@@ -439,22 +447,22 @@ The device window will be disabled.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="495"/>
+        <location filename="../devicewindow.cpp" line="500"/>
         <source>OC fault!</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="504"/>
+        <location filename="../devicewindow.cpp" line="509"/>
         <source>Time: %1s</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="505"/>
+        <location filename="../devicewindow.cpp" line="510"/>
         <source>Log: %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicewindow.cpp" line="506"/>
+        <location filename="../devicewindow.cpp" line="511"/>
         <source>Meas.: %1</source>
         <translation></translation>
     </message>
