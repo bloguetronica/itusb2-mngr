@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.2 for Debian Linux
+/* ITUSB2 Manager - Version 1.3 for Debian Linux
    Copyright (c) 2021 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -437,10 +437,15 @@ void DeviceWindow::setupDevice()
     QString errstr;
     device_.setup(errcnt, errstr);
     if (errcnt > 0) {
-        device_.reset(errcnt, errstr);  // Try to reset the device for sanity purposes, but don't check if it was successful (device is reset before showing the dialog since version 1.2)
-        device_.close();  // Close the device (implemented here since version 1.2)
-        errstr.chop(1);  // Remove the last character, which is always a newline
-        QMessageBox::critical(this, tr("Error"), tr("Setup operation returned the following error(s):\n– %1\n\nPlease try accessing the device again.", "", errcnt).arg(errstr.replace("\n", "\n– ")));
+        if (device_.disconnected()) {  // Verification added in version 1.3
+            device_.close();
+            QMessageBox::critical(this, tr("Error"), tr("Device disconnected.\n\nPlease reconnect it and try again."));
+        } else {
+            device_.reset(errcnt, errstr);  // Try to reset the device for sanity purposes, but don't check if it was successful (device is reset before showing the dialog since version 1.2)
+            device_.close();  // Close the device (implemented here since version 1.2)
+            errstr.chop(1);  // Remove the last character, which is always a newline
+            QMessageBox::critical(this, tr("Error"), tr("Setup operation returned the following error(s):\n– %1\n\nPlease try accessing the device again.", "", errcnt).arg(errstr.replace("\n", "\n– ")));
+        }
         this->deleteLater();  // In a context where the window is already visible, it has the same effect as this->close()
     }
 }
