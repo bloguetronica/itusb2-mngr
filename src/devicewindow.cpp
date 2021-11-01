@@ -373,13 +373,13 @@ void DeviceWindow::resetDevice()
                 break;
             }
         }
-        if (err == 1) {  // Failed to initialize libusb
+        if (err == ITUSB2Device::ERROR_INIT) {  // Failed to initialize libusb
             QMessageBox::critical(this, tr("Critical Error"), tr("Could not reinitialize libusb.\n\nThis is a critical error and execution will be aborted."));
             exit(EXIT_FAILURE);  // This error is critical because libusb failed to initialize
-        } else if (err == 2) {  // Failed to find device
+        } else if (err == ITUSB2Device::ERROR_NOT_FOUND) {  // Failed to find device
             QMessageBox::critical(this, tr("Error"), tr("Device disconnected."));
             this->close();  // Close window
-        } else if (err == 3) {  // Failed to claim interface
+        } else if (err == ITUSB2Device::ERROR_BUSY) {  // Failed to claim interface
             QMessageBox::critical(this, tr("Error"), tr("Device ceased to be available.\n\nPlease verify that the device is not in use by another application."));
             this->close();  // Close window
         } else {
