@@ -338,7 +338,7 @@ Deseja prosseguir?</translation>
         <source>Device disconnected.
 
 The corresponding window will be disabled.</source>
-        <translation>O dispositivo foi desligado
+        <translation>O dispositivo foi desligado.
 
 A respectiva janela será desabilitada.</translation>
     </message>
@@ -405,7 +405,9 @@ Por favor, verifique se tem permissões de escrita sobre este ficheiro.</transla
         <source>Device disconnected.
 
 Please reconnect it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>O dispositivo foi desligado.
+
+Por favor, ligue-o e tente novamente.</translation>
     </message>
     <message numerus="yes">
         <location filename="../devicewindow.cpp" line="447"/>
