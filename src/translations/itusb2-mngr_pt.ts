@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="pt_BR">
+<TS version="2.1" language="pt">
 <context>
     <name>AboutDialog</name>
     <message>
         <location filename="../aboutdialog.ui" line="26"/>
         <source>About ITUSB2 Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca do ITUSB2 Manager</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="68"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ITUSB2 Manager - Version 1.2&lt;br/&gt;© 2021 Samuel Lourenço&lt;/p&gt;&lt;p&gt;This program is distributed under the terms of the &lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0-standalone.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GNU GPL v3&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ITUSB2 Manager - Versão 1.2&lt;br/&gt;© 2021 Samuel Lourenço&lt;/p&gt;&lt;p&gt;Este programa é distribuido sob os termos da licença &lt;a href=&quot;https://www.gnu.org/licenses/gpl-3.0-standalone.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;GNU GPL v3&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -19,198 +19,200 @@
     <message>
         <location filename="../devicewindow.ui" line="26"/>
         <source>ITUSB2 USB Test Switch</source>
-        <translation type="unfinished"></translation>
+        <translation>Interruptor de Teste USB ITUSB2</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="53"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="103"/>
         <source>Current (mA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Corrente (mA)</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="144"/>
         <source>Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="156"/>
         <source>Actual</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="172"/>
         <source>Average</source>
-        <translation type="unfinished"></translation>
+        <translation>Média</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="185"/>
         <source>Min.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mínimo</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="198"/>
         <source>Max.</source>
-        <translation type="unfinished"></translation>
+        <translation>Máximo</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="212"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="239"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlo</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="251"/>
         <source>Attach</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligar</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="264"/>
         <source>Detach</source>
-        <translation type="unfinished"></translation>
+        <translation>Desligar</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="277"/>
         <source>Power</source>
-        <translation type="unfinished"></translation>
+        <translation>Alim.</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="290"/>
         <source>Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dados</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="303"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="319"/>
         <source>&amp;Device</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dispositivo</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="329"/>
         <source>&amp;Options</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Opções</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="333"/>
         <source>&amp;Update Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Taxa de Actualização</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="350"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajuda</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="361"/>
         <source>&amp;Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Informações</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="369"/>
         <source>&amp;Save Logged Data</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Gravar Dados Registados</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="374"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fechar</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="377"/>
         <source>Ctrl+W</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="385"/>
         <source>5&amp;0ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="393"/>
         <source>&amp;100ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="404"/>
         <source>&amp;200ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="412"/>
         <source>&amp;300ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="420"/>
         <source>&amp;500ms</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="431"/>
         <source>&amp;Persistent Warnings</source>
-        <translation type="unfinished"></translation>
+        <translation>Avisos &amp;Persistentes</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="439"/>
         <source>&amp;Log Data</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Registar Dados</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="447"/>
         <source>&amp;Delete Logged Data</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Apagar Dados Registados</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="452"/>
         <source>&amp;Reset Time Count</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar &amp;Contagem de Tempo</translation>
     </message>
     <message>
         <location filename="../devicewindow.ui" line="457"/>
         <source>&amp;About ITUSB2 Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Acerca do ITUSB2 Manager</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="42"/>
         <location filename="../devicewindow.cpp" line="398"/>
         <source>Time: 0s</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo: 0s</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="44"/>
         <location filename="../devicewindow.cpp" line="296"/>
         <source>Log: 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Reg.: 0</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="46"/>
         <location filename="../devicewindow.cpp" line="288"/>
         <source>Meas.: 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Mdcs.: 0</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="62"/>
         <location filename="../devicewindow.cpp" line="377"/>
         <source>Critical Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro Crítico</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="62"/>
         <source>Could not initialize libusb.
 
 This is a critical error and execution will be aborted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou ao inicializar o libusb.
+
+Este é um erro crítico e a execução será abortada.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="65"/>
@@ -224,173 +226,188 @@ This is a critical error and execution will be aborted.</source>
         <location filename="../devicewindow.cpp" line="442"/>
         <location filename="../devicewindow.cpp" line="447"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="65"/>
         <source>Could not find device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo não encontrado.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="68"/>
         <source>Device is currently unavailable.
 
 Please confirm that the device is not in use.</source>
-        <translation type="unfinished"></translation>
+        <translation>O dispositivo encontra-se indisponível neste momento.
+
+Por favor, confirme que o mesmo não está a ser utilizado.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="73"/>
         <source>ITUSB2 USB Test Switch (S/N: %1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Interruptor de Teste USB ITUSB2 (NS: %1)</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="85"/>
         <source>Unsaved Data Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Dados Não Gravados</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="85"/>
         <source>There are data points in memory that were not saved yet.
 
 Do you wish to save them?</source>
-        <translation type="unfinished"></translation>
+        <translation>Existem dados em memória que ainda não foram gravados.
+
+Deseja gravá-los?</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="108"/>
         <source>Delete Logged Data?</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar Dados Registados?</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="108"/>
         <source>This action will delete any data points acquired until now.
 
 Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta acção irá apagar todos os dados registados até agora.
+
+Deseja prosseguir?</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="125"/>
         <source>device-information-retrieval-op</source>
-        <translation type="unfinished"></translation>
+        <translation>recolha de informações do dispositivo</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="185"/>
         <source>Reset Time Count?</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar Contagem de Tempo?</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="185"/>
         <source>This action, besides resetting the elapsed time count, will also delete any previously acquired data points.
 
 Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta acção, para além de reiniciar a contagem de tempo, irá apagar todos os dados anteriormente registados.
+
+Deseja prosseguir?</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="205"/>
         <source>data-switch-op</source>
-        <translation type="unfinished"></translation>
+        <translation>comutação das linhas de dados</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="213"/>
         <source>power-switch-op</source>
-        <translation type="unfinished"></translation>
+        <translation>comutação da linha de alimentação</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="221"/>
         <source>attach-op</source>
-        <translation type="unfinished"></translation>
+        <translation>conexão</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="240"/>
         <source>detach-op</source>
-        <translation type="unfinished"></translation>
+        <translation>desconexão</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="253"/>
         <source>Reset Device?</source>
-        <translation type="unfinished"></translation>
+        <translation>Reiniciar o Dispositivo?</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="253"/>
         <source>This action, besides resetting the device, will also delete any previously acquired data points.
 
 Do you wish to proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta acção, para além de reiniciar o dispositivo, irá apagar todos os dados anteriormente registados.
+
+Deseja prosseguir?</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="275"/>
         <source>update-op</source>
-        <translation type="unfinished"></translation>
+        <translation>actualização</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="332"/>
         <source>Device disconnected.
 
 The corresponding window will be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>O dispositivo foi desligado.
+
+A respectiva janela será desabilitada.</translation>
     </message>
     <message numerus="yes">
         <location filename="../devicewindow.cpp" line="337"/>
         <source>%1 operation returned the following error(s):
 – %2</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Operação de %1 retornou o seguinte erro:
+– %2</numerusform>
+            <numerusform>Operação de %1 retornou os seguintes erros:
+– %2</numerusform>
         </translation>
-    </message>
-    <message>
-        <location filename="../devicewindow.cpp" line="341"/>
-        <source>Detected too many errors.
-
-The device window will be disabled.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="365"/>
         <source>reset-op</source>
-        <translation type="unfinished"></translation>
+        <translation>reinício</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="377"/>
         <source>Could not reinitialize libusb.
 
 This is a critical error and execution will be aborted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou ao reinicializar o libusb.
+
+Este é um erro crítico e a execução será abortada.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="380"/>
         <source>Device disconnected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo desligado.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="383"/>
         <source>Device ceased to be available.
 
 Please verify that the device is not in use by another application.</source>
-        <translation type="unfinished"></translation>
+        <translation>O dispositivo deixou de estar disponível.
+
+Por favor, verifique se o mesmo não está a ser utilizado por outra aplicação.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="406"/>
         <source>Save Logged Data to File</source>
-        <translation type="unfinished"></translation>
+        <translation>Gravar Dados Registados para Ficheiro</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="406"/>
         <source>CSV files (*.csv);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ficheiros CSV (*.csv);;Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="412"/>
         <source>Could not write to %1.
 
 Please verify that you have write access to this file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Não conseguiu escrever em %1.
+
+Por favor, verifique se tem permissões de escrita sobre este ficheiro.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="442"/>
         <source>Device disconnected.
 
 Please reconnect it and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>O dispositivo foi desligado.
+
+Por favor, ligue-o e tente novamente.</translation>
     </message>
     <message numerus="yes">
         <location filename="../devicewindow.cpp" line="447"/>
@@ -398,65 +415,80 @@ Please reconnect it and try again.</source>
 – %1
 
 Please try accessing the device again.</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Operação de inicialização retornou o seguinte erro:
+– %1
+
+Por favor, tente aceder novamente ao dispositivo.</numerusform>
+            <numerusform>Operação de inicialização retornou os seguintes erros:
+– %1
+
+Por favor, tente aceder novamente ao dispositivo.</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="457"/>
         <source>Connection enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligação habilitada</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="459"/>
         <source>Connection disabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../devicewindow.cpp" line="463"/>
-        <source>No device</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligação desabilitada</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="466"/>
         <source>Device detected</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo detectado</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="469"/>
         <source>Full/low speed device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo &apos;full/low speed&apos;</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="472"/>
         <source>High speed device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo &apos;high speed&apos;</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="475"/>
         <source>Suspend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de suspensão</translation>
+    </message>
+    <message>
+        <location filename="../devicewindow.cpp" line="463"/>
+        <source>No device</source>
+        <translation>Sem dispositivo</translation>
+    </message>
+    <message>
+        <location filename="../devicewindow.cpp" line="341"/>
+        <source>Detected too many errors.
+
+The device window will be disabled.</source>
+        <translation>Demasiados erros detectados.
+
+A janela do dispositivo será desabilitada.</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="500"/>
         <source>OC fault!</source>
-        <translation type="unfinished"></translation>
+        <translation>Falha SC!</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="509"/>
         <source>Time: %1s</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo: %1s</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="510"/>
         <source>Log: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Reg.: %1</translation>
     </message>
     <message>
         <location filename="../devicewindow.cpp" line="511"/>
         <source>Meas.: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Mdcs.: %1</translation>
     </message>
 </context>
 <context>
@@ -464,32 +496,32 @@ Please try accessing the device again.</source>
     <message>
         <location filename="../informationdialog.ui" line="26"/>
         <source>Device Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informações do Dispositivo</translation>
     </message>
     <message>
         <location filename="../informationdialog.ui" line="68"/>
         <source>Manufacturer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fabricante:</translation>
     </message>
     <message>
         <location filename="../informationdialog.ui" line="97"/>
         <source>Product:</source>
-        <translation type="unfinished"></translation>
+        <translation>Produto:</translation>
     </message>
     <message>
         <location filename="../informationdialog.ui" line="126"/>
         <source>Serial number:</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de série:</translation>
     </message>
     <message>
         <location filename="../informationdialog.ui" line="155"/>
         <source>Hardware revision:</source>
-        <translation type="unfinished"></translation>
+        <translation>Revisão de hardware:</translation>
     </message>
     <message>
         <location filename="../informationdialog.ui" line="184"/>
         <source>Max. power cons. (mA):</source>
-        <translation type="unfinished"></translation>
+        <translation>Consumo máx. (mA):</translation>
     </message>
 </context>
 <context>
@@ -497,59 +529,60 @@ Please try accessing the device again.</source>
     <message>
         <location filename="../mainwindow.ui" line="26"/>
         <source>ITUSB2 Manager</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="54"/>
         <location filename="../mainwindow.cpp" line="88"/>
         <source>Select device...</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione o dispositivo...</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="68"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="84"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="99"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ficheiro</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="105"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajuda</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="114"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sair</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="117"/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="122"/>
         <source>&amp;About ITUSB2 Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Acerca do ITUSB2 Manager</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="91"/>
         <source>Critical Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Erro Crítico</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="91"/>
         <source>%1
 This is a critical error and execution will be aborted.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1
+Este é um erro crítico e a execução será abortada.</translation>
     </message>
 </context>
 <context>
@@ -558,121 +591,141 @@ This is a critical error and execution will be aborted.</source>
         <location filename="../cp2130.cpp" line="169"/>
         <source>In bulkTransfer(): device is not open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;bulkTransfer()&quot;: o dispositivo não se encontra aberto.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="175"/>
         <source>Failed bulk OUT transfer to endpoint %1 (address 0x%2).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou transferência &quot;bulk OUT&quot; para o &apos;endpoint&apos; %1 (endereço 0x%2).
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="177"/>
         <source>Failed bulk IN transfer from endpoint %1 (address 0x%2).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou transferência &quot;bulk IN&quot; proveniente do &apos;endpoint&apos; %1 (endereço 0x%2).
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="206"/>
         <source>In configureGPIO(): Pin number must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;configureGPIO()&quot;: O número do pino deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="222"/>
         <source>In configureSPIDelays(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;configureSPIDelays()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="240"/>
         <source>In configureSPIMode(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;configureSPIMode()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="255"/>
         <source>In controlTransfer(): device is not open.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;controlTransfer()&quot;: o dispositivo não se encontra aberto.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="260"/>
         <source>Failed control transfer (0x%1, 0x%2).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou transferência de controlo (0x%1, 0x%2).
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="273"/>
         <source>In disableCS(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;disableCS()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="288"/>
         <source>In disableSPIDelays(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;disableSPIDelays()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="306"/>
         <source>In enableCS(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;enableCS()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="330"/>
         <source>In getCS(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;getCS()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="586"/>
         <source>In getSPIDelays(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;getSPIDelays()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="609"/>
         <source>In getSPIMode(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;getSPIMode()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="720"/>
         <source>In selectCS(): SPI channel value must be between 0 and 10.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;selectCS()&quot;: O valor do canal SPI deve estar compreendido entre 0 e 10.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="924"/>
         <source>In writeManufacturerDesc(): manufacturer descriptor string cannot be longer than 62 characters.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;writeManufacturerDesc()&quot;: o descritor do fabricante não pode ter mais do que 62 caracteres.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="982"/>
         <source>In writeProductDesc(): product descriptor string cannot be longer than 62 characters.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;writeProductDesc()&quot;: o descritor do produto não pode ter mais do que 62 caracteres.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="1028"/>
         <source>In writeSerialDesc(): serial descriptor string cannot be longer than 30 characters.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Em &quot;writeSerialDesc()&quot;: o descritor do número de série não pode ter mais do que 30 caracteres.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="1068"/>
         <source>Could not initialize libusb.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou ao inicializar o libusb.
+</translation>
     </message>
     <message>
         <location filename="../cp2130.cpp" line="1074"/>
         <source>Failed to retrieve a list of devices.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Falhou em obter uma lista de dispositivos.
+</translation>
     </message>
 </context>
 </TS>
