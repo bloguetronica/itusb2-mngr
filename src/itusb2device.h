@@ -1,4 +1,4 @@
-/* ITUSB2 device class for Qt - Version 3.0.1
+/* ITUSB2 device class for Qt - Version 3.1.0
    Requires CP2130 class for Qt version 2.0.0 or later
    Copyright (c) 2021 Samuel Lourenço
 
@@ -51,9 +51,11 @@ public:
     void attach(int &errcnt, QString &errstr);
     void close();
     void detach(int &errcnt, QString &errstr);
+    CP2130::SiliconVersion getCP2130SiliconVersion(int &errcnt, QString &errstr);
     float getCurrent(int &errcnt, QString &errstr);
     bool getDUTConnectionStatus(int &errcnt, QString &errstr);
     bool getDUTSpeedStatus(int &errcnt, QString &errstr);
+    QString getHardwareRevision(int &errcnt, QString &errstr);
     QString getManufacturerDesc(int &errcnt, QString &errstr);
     bool getOvercurrentStatus(int &errcnt, QString &errstr);
     QString getProductDesc(int &errcnt, QString &errstr);
@@ -68,6 +70,7 @@ public:
     void switchUSBData(bool value, int &errcnt, QString &errstr);
     void switchUSBPower(bool value, int &errcnt, QString &errstr);
 
+    static QString hardwareRevision(const CP2130::USBConfig &config);
     static QStringList listDevices(int &errcnt, QString &errstr);
 };
 
