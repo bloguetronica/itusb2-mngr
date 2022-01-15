@@ -1,5 +1,5 @@
 /* ITUSB2 Manager - Version 1.3 for Debian Linux
-   Copyright (c) 2021 Samuel Lourenço
+   Copyright (c) 2021-2022 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the Free
@@ -72,6 +72,8 @@ void DeviceWindow::openDevice(const QString &serialstr)
         setupDevice();  // Necessary in order to get correct readings
         this->setWindowTitle(tr("ITUSB2 USB Test Switch (S/N: %1)").arg(serialstr_));
         timer_ = new QTimer(this);  // Create a timer
+        QObject::connect(&device_, SIGNAL(switchedUSBData()), this, SLOT(update()));
+        QObject::connect(&device_, SIGNAL(switchedUSBPower()), this, SLOT(update()));
         QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(update()));
         timer_->start(200);
         time_.start();  // Start counting the elapsed time from this point
@@ -218,12 +220,7 @@ void DeviceWindow::on_pushButtonAttach_clicked()
     int errcnt = 0;
     QString errstr;
     device_.attach(errcnt, errstr);
-    if (opCheck(tr("attach-op"), errcnt, errstr)) {  // If error check passes  (the string "attach-op" should be translated to "Attach")
-        // Needed for improved responsiveness
-        ui->checkBoxPower->setChecked(true);
-        ui->checkBoxData->setChecked(true);
-        // Note that update() will always confirm the true status of the lines
-    }
+    opCheck(tr("attach-op"), errcnt, errstr);
 }
 
 void DeviceWindow::on_pushButtonClear_clicked()
@@ -237,12 +234,7 @@ void DeviceWindow::on_pushButtonDetach_clicked()
     int errcnt = 0;
     QString errstr;
     device_.detach(errcnt, errstr);
-    if (opCheck(tr("detach-op"), errcnt, errstr)) {  // If error check passes (the string "detach-op" should be translated to "Detach")
-        // Needed for improved responsiveness
-        ui->checkBoxPower->setChecked(false);
-        ui->checkBoxData->setChecked(false);
-        // Note that, as before, update() will always confirm the true status of the lines
-    }
+    opCheck(tr("detach-op"), errcnt, errstr);
 }
 
 void DeviceWindow::on_pushButtonReset_clicked()

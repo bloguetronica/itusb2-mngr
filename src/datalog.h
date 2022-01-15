@@ -1,5 +1,5 @@
 /* ITUSB2 Manager - Version 1.3 for Debian Linux
-   Copyright (c) 2021 Samuel Lourenço
+   Copyright (c) 2021-2022 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the Free
