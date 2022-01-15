@@ -1,6 +1,6 @@
-/* ITUSB2 device class for Qt - Version 3.1.0
+/* ITUSB2 device class for Qt - Version 3.2.0
    Requires CP2130 class for Qt version 2.0.0 or later
-   Copyright (c) 2021 Samuel Lourenço
+   Copyright (c) 2021-2022 Samuel Lourenço
 
    This library is free software: you can redistribute it and/or modify it
    under the terms of the GNU Lesser General Public License as published by
@@ -20,6 +20,7 @@
 
 
 // Includes
+#include <QCoreApplication>
 #include <QThread>
 #include <QVector>
 #include "itusb2device.h"
@@ -203,13 +204,23 @@ void ITUSB2Device::switchUSB(bool value, int &errcnt, QString &errstr)
 // Switches the USB data lines on or off
 void ITUSB2Device::switchUSBData(bool value, int &errcnt, QString &errstr)
 {
+    int preverrcnt = errcnt;  // Keep the previous error count (added in version 3.2.0)
     cp2130_.setGPIO2(!value, errcnt, errstr);  // GPIO.2 corresponds to the !UDEN signal
+    if (errcnt == preverrcnt) {  // If the previous operation succeeded (block of code added in version 3.2.0)
+        emit switchedUSBData();
+        QCoreApplication::processEvents();  // This facilitates responsiveness
+    }
 }
 
 // Switches VBUS on or off
 void ITUSB2Device::switchUSBPower(bool value, int &errcnt, QString &errstr)
 {
+    int preverrcnt = errcnt;  // Keep the previous error count (added in version 3.2.0)
     cp2130_.setGPIO1(!value, errcnt, errstr);  // GPIO.1 corresponds to the !UPEN signal
+    if (errcnt == preverrcnt) {  // If the previous operation succeeded (block of code added in version 3.2.0)
+        emit switchedUSBPower();
+        QCoreApplication::processEvents();  // This facilitates responsiveness
+    }
 }
 
 // Helper function that returns the hardware revision from a given USB configuration
