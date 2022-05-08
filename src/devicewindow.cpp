@@ -1,4 +1,4 @@
-/* ITUSB2 Manager - Version 1.3 for Debian Linux
+/* ITUSB2 Manager - Version 1.4 for Debian Linux
    Copyright (c) 2021-2022 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
@@ -58,16 +58,7 @@ DeviceWindow::~DeviceWindow()
 void DeviceWindow::openDevice(const QString &serialstr)
 {
     int err = device_.open(serialstr);
-    if (err == ITUSB2Device::ERROR_INIT) {  // Failed to initialize libusb
-        QMessageBox::critical(this, tr("Critical Error"), tr("Could not initialize libusb.\n\nThis is a critical error and execution will be aborted."));
-        exit(EXIT_FAILURE);  // This error is critical because libusb failed to initialize
-    } else if (err == ITUSB2Device::ERROR_NOT_FOUND) {  // Failed to find device
-        QMessageBox::critical(this, tr("Error"), tr("Could not find device."));
-        this->deleteLater();  // Close window after the subsequent show() call
-    } else if (err == ITUSB2Device::ERROR_BUSY) {  // Failed to claim interface
-        QMessageBox::critical(this, tr("Error"), tr("Device is currently unavailable.\n\nPlease confirm that the device is not in use."));
-        this->deleteLater();  // Close window after the subsequent show() call
-    } else {
+    if (err == ITUSB2Device::SUCCESS) {  // Device was successfully opened
         serialstr_ = serialstr;  // Valid serial number
         setupDevice();  // Necessary in order to get correct readings
         this->setWindowTitle(tr("ITUSB2 USB Test Switch (S/N: %1)").arg(serialstr_));
@@ -77,6 +68,16 @@ void DeviceWindow::openDevice(const QString &serialstr)
         QObject::connect(timer_, SIGNAL(timeout()), this, SLOT(update()));
         timer_->start(200);
         time_.start();  // Start counting the elapsed time from this point
+    } else if (err == ITUSB2Device::ERROR_INIT) {  // Failed to initialize libusb
+        QMessageBox::critical(this, tr("Critical Error"), tr("Could not initialize libusb.\n\nThis is a critical error and execution will be aborted."));
+        exit(EXIT_FAILURE);  // This error is critical because libusb failed to initialize
+    } else {
+        if (err == ITUSB2Device::ERROR_NOT_FOUND) {  // Failed to find device
+            QMessageBox::critical(this, tr("Error"), tr("Could not find device."));
+        } else if (err == ITUSB2Device::ERROR_BUSY) {  // Failed to claim interface
+            QMessageBox::critical(this, tr("Error"), tr("Device is currently unavailable.\n\nPlease confirm that the device is not in use."));
+        }
+        this->deleteLater();  // Close window after the subsequent show() call
     }
 }
 
@@ -273,7 +274,7 @@ void DeviceWindow::update()
     }
 }
 
-// Wrapper function that also resets the "Meas" counter in the status bar
+// Wrapper function that also resets the "Meas" Trident TVGA9000icounter in the status bar
 void DeviceWindow::clearMetrics()
 {
     metrics_.clear();
@@ -321,20 +322,20 @@ bool DeviceWindow::opCheck(const QString &op, int errcnt, QString errstr)
     if (errcnt > 0) {
         if (device_.disconnected()) {  // Added in version 1.2
             timer_->stop();  // This prevents further errors
-            QMessageBox::critical(this, tr("Error"), tr("Device disconnected.\n\nThe corresponding window will be disabled."));
             disableView();  // Disable device window
             device_.close();
+            QMessageBox::critical(this, tr("Error"), tr("Device disconnected.\n\nPlease reconnect it and try again."));
         } else {
             errstr.chop(1);  // Remove the last character, which is always a newline
             QMessageBox::critical(this, tr("Error"), tr("%1 operation returned the following error(s):\n– %2", "", errcnt).arg(op, errstr.replace("\n", "\n– ")));
             erracc_ += errcnt;
             if (erracc_ > ERR_LIMIT) {  // If the session accumulated more errors than the limit set by "ERR_LIMIT" [10]
                 timer_->stop();  // Again, this prevents further errors
-                QMessageBox::critical(this, tr("Error"), tr("Detected too many errors.\n\nThe device window will be disabled."));
                 disableView();  // Disable device window
                 device_.reset(errcnt, errstr);  // Try to reset the device for sanity purposes, but don't check if it was successful
                 device_.close();  // Ensure that the device is freed, even if the previous device reset is not effective (device_.reset() also frees the device interface, as an effect of re-enumeration)
                 // It is essential that device_.close() is called, since some important checks rely on device_.isOpen() to retrieve a proper status
+                QMessageBox::critical(this, tr("Error"), tr("Detected too many errors."));
             }
         }
         retval = false;  // Failed check
@@ -361,23 +362,26 @@ void DeviceWindow::resetDevice()
         for (int i = 0; i < ENUM_RETRIES; ++i) {  // Verify enumeration according to the number of times set by "ENUM_RETRIES" [10]
             QThread::msleep(500);  // Wait 500ms each time
             err = device_.open(serialstr_);
-            if (err != 2) {  // Retry only if the device was not found yet (as it may take some time to enumerate)
+            if (err != ITUSB2Device::ERROR_NOT_FOUND) {  // Retry only if the device was not found yet (as it may take some time to enumerate)
                 break;
             }
         }
-        if (err == ITUSB2Device::ERROR_INIT) {  // Failed to initialize libusb
-            QMessageBox::critical(this, tr("Critical Error"), tr("Could not reinitialize libusb.\n\nThis is a critical error and execution will be aborted."));
-            exit(EXIT_FAILURE);  // This error is critical because libusb failed to initialize
-        } else if (err == ITUSB2Device::ERROR_NOT_FOUND) {  // Failed to find device
-            QMessageBox::critical(this, tr("Error"), tr("Device disconnected."));
-            this->close();  // Close window
-        } else if (err == ITUSB2Device::ERROR_BUSY) {  // Failed to claim interface
-            QMessageBox::critical(this, tr("Error"), tr("Device ceased to be available.\n\nPlease verify that the device is not in use by another application."));
-            this->close();  // Close window
-        } else {
+        if (err == ITUSB2Device::SUCCESS) {  // Device was successfully reopened
             setupDevice();  // Necessary in order to get correct readings after a device reset
             erracc_ = 0;  // Zero the error count accumulator, since a new session gets started once the reset is done
             resetTimeCount();  // Reset time count
+        } else {
+            this->setEnabled(false);  // Added in version 1.4
+            if (err == ITUSB2Device::ERROR_INIT) {  // Failed to initialize libusb
+                QMessageBox::critical(this, tr("Critical Error"), tr("Could not reinitialize libusb.\n\nThis is a critical error and execution will be aborted."));
+                exit(EXIT_FAILURE);  // This error is critical because libusb failed to initialize
+            } else if (err == ITUSB2Device::ERROR_NOT_FOUND) {  // Failed to find device
+                QMessageBox::critical(this, tr("Error"), tr("Device disconnected.\n\nPlease reconnect it and try again."));
+                this->close();  // Close window
+            } else if (err == ITUSB2Device::ERROR_BUSY) {  // Failed to claim interface
+                QMessageBox::critical(this, tr("Error"), tr("Device ceased to be available.\n\nPlease verify that the device is not in use by another application."));
+                this->close();  // Close window
+            }
         }
     }
 }
