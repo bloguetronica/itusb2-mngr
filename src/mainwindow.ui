@@ -123,6 +123,11 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>comboBoxDevices</tabstop>
+  <tabstop>pushButtonRefresh</tabstop>
+  <tabstop>pushButtonOpen</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>
